@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['layouts.app', 'layouts.bottom-nav'], function ($view): void {
+        View::composer(['absensi.layouts.app', 'absensi.layouts.bottom-nav'], function ($view): void {
             $view->with('pendingLeaveCount', session('auth_role') === 'manajer'
                 ? PengajuanIzin::query()->where('status_izin', PengajuanIzin::STATUS_PENDING)->count()
                 : 0);

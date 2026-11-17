@@ -9,25 +9,46 @@ use Illuminate\View\View;
 class AuthController extends Controller
 {
     /**
-     * Show the login screen or redirect if already authenticated.
+     * Tampilkan halaman login dengan pilihan modul tujuan.
      */
     public function showLogin(Request $request): View|RedirectResponse
     {
         $role = $request->session()->get('auth_role');
+        $targetModule = $request->query('module');
 
-        if ($role === 'manajer') {
-            return redirect()->route('admin.dashboard');
+        // Jika user sudah login sebelumnya:
+        if ($role) {
+            if ($targetModule === 'chatbotwa') {
+                return redirect()->route('chatbotwa.dashboard');
+            }
+            if ($targetModule === 'pemeliharaanalat') {
+                return redirect()->route('pemeliharaanalat.dashboard');
+            }
+            if ($targetModule === 'penyewaanreklame') {
+                return redirect()->route('penyewaanreklame.dashboard');
+            }
+            if ($targetModule === 'absensi') {
+                return $role === 'manajer'
+                    ? redirect()->route('admin.dashboard')
+                    : redirect()->route('karyawan.dashboard');
+            }
+
+            return $role === 'manajer'
+                ? redirect()->route('admin.dashboard')
+                : redirect()->route('karyawan.dashboard');
         }
 
-        if ($role === 'karyawan') {
-            return redirect()->route('karyawan.dashboard');
-        }
+        $validModule = in_array($targetModule, ['absensi', 'chatbotwa', 'pemeliharaanalat', 'penyewaanreklame'], true)
+            ? $targetModule
+            : 'absensi';
 
-        return view('auth.login');
+        return view('login', [
+            'selectedModule' => $validModule,
+        ]);
     }
 
     /**
-     * Authenticate user and assign role session (karyawan or manajer).
+     * Autentikasi user dan alihkan langsung ke modul yang dipilih.
      */
     public function login(Request $request): RedirectResponse
     {
@@ -35,10 +56,12 @@ class AuthController extends Controller
             'email' => ['required', 'string'],
             'password' => ['required', 'string'],
             'role' => ['nullable', 'string', 'in:karyawan,manajer'],
+            'module' => ['nullable', 'string', 'in:absensi,chatbotwa,pemeliharaanalat,penyewaanreklame'],
         ]);
 
         $email = strtolower(trim($validated['email']));
         $explicitRole = $validated['role'] ?? null;
+        $targetModule = $validated['module'] ?? 'absensi';
 
         $isManager = $explicitRole === 'manajer'
             || str_contains($email, 'manajer')
@@ -55,24 +78,38 @@ class AuthController extends Controller
                 'division' => 'Manajer Operasional & HRD',
                 'role_label' => 'Manajer / HRD',
             ]);
-
-            return redirect()->route('admin.dashboard');
+        } else {
+            $request->session()->put('auth_role', 'karyawan');
+            $request->session()->put('auth_user', [
+                'name' => 'Ahmad Fauzi',
+                'email' => 'ahmad.fauzi@perusahaan.co.id',
+                'nik' => 'PKL-2026-081',
+                'division' => 'Divisi IT Development',
+                'role_label' => 'Karyawan',
+            ]);
         }
 
-        $request->session()->put('auth_role', 'karyawan');
-        $request->session()->put('auth_user', [
-            'name' => 'Ahmad Fauzi',
-            'email' => 'ahmad.fauzi@perusahaan.co.id',
-            'nik' => 'PKL-2026-081',
-            'division' => 'Divisi IT Development',
-            'role_label' => 'Karyawan',
-        ]);
+        // Pengalihan ke modul yang dipilih
+        if ($targetModule === 'chatbotwa') {
+            return redirect()->route('chatbotwa.dashboard');
+        }
 
-        return redirect()->route('karyawan.dashboard');
+        if ($targetModule === 'pemeliharaanalat') {
+            return redirect()->route('pemeliharaanalat.dashboard');
+        }
+
+        if ($targetModule === 'penyewaanreklame') {
+            return redirect()->route('penyewaanreklame.dashboard');
+        }
+
+        // Default: Modul Absensi (sesuai peran)
+        return $isManager
+            ? redirect()->route('admin.dashboard')
+            : redirect()->route('karyawan.dashboard');
     }
 
     /**
-     * Terminate active role session and return to login screen.
+     * Akhiri sesi dan kembali ke halaman login.
      */
     public function logout(Request $request): RedirectResponse
     {
