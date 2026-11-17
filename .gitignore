@@ -25,3 +25,13 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Dokumen & Laporan Progres
+/LAPORAN/
+*.docx
+
+# AI Skills & Taste Tools
+/.agents/
+/.taste-skill/
+skills-lock.json
+
