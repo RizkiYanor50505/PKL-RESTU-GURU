@@ -1,0 +1,1766 @@
+{
+ "url": "http://127.0.0.1:8000/admin/dashboard",
+ "at": "2026-11-07T09:27:50.657Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.46
+   ],
+   "motion": {
+    "elements": 3,
+    "css": 3,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 900,
+     "screens": 1,
+     "words": 260,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 10,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "chars": 30,
+     "lines": 1,
+     "size": 20,
+     "vw": 1.4,
+     "font": "Plus Jakarta Sans",
+     "weight": 800,
+     "tracking": 0,
+     "leading": 1.4,
+     "top": 115,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "lines": 1,
+     "size": 20,
+     "font": "Plus Jakarta Sans"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Plus Jakarta Sans",
+       "share": 0.9,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.1,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      14,
+      16,
+      20,
+      24
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Plus Jakarta Sans",
+      "size": 11,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.6
+     },
+     "measureChars": 65,
+     "max": {
+      "size": 24,
+      "vw": 1.7,
+      "font": "ui-monospace",
+      "text": "38"
+     },
+     "monoShare": 0.1,
+     "monoProseShare": 0.1,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "v1.0 (UI Prototype)",
+      "PORTAL ADMIN",
+      "38",
+      "4",
+      "3",
+      "2"
+     ],
+     "microLabels": 8,
+     "microLabelShare": 0.063,
+     "microSamples": [
+      "Karyawan",
+      "Jam Masuk",
+      "Jarak & Lokasi",
+      "IP & Perangkat",
+      "Status",
+      "Aksi"
+     ],
+     "upperShare": 0.11,
+     "centerShare": 0.11,
+     "smallText": 54
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f8fafc",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.4,
+      "l": 0.98
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#64748b",
+       "share": 0.26
+      },
+      {
+       "color": "#94a3b8",
+       "share": 0.13
+      },
+      {
+       "color": "#9f1239",
+       "share": 0.11
+      },
+      {
+       "color": "#0f172a",
+       "share": 0.11
+      },
+      {
+       "color": "#e11d48",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#0f172a",
+      "hsl": {
+       "h": 222,
+       "s": 0.47,
+       "l": 0.11
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "07:40 WIB",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#94a3b8",
+       "bg": "#f8fafc"
+      },
+      {
+       "text": "1.2 MB",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#94a3b8",
+       "bg": "#f8fafc"
+      },
+      {
+       "text": "Hadir Tepat Waktu",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "/ 48",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Terlambat",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Karyawan",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 7,
+     "radius": 12,
+     "height": 36,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Mode Admin (HRD)",
+      "Kelola QR Statis",
+      "Ekspor Excel",
+      "Setujui",
+      "Tolak"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 8,
+     "shadowOverlay": 4,
+     "shadowSamples": [
+      "div.flex.flex-col → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 6,
+     "hairlineSamples": [
+      "header.bg-slate-900.text-slate-300 1440px",
+      "div.p-4.border-b 651px",
+      "div.p-3.bg-slate-50 651px",
+      "div.flex.items-center 281px",
+      "div.flex.items-center 281px"
+     ],
+     "outlinedBoxes": 11,
+     "dashed": 0,
+     "blurred": 2,
+     "roundedBoxes": 12,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 204
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 45,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "plus jakarta sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 900,
+    "margins": {
+     "left": 241,
+     "right": 245
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Monitoring Kehadiran Real-time",
+      "size": 20,
+      "top": 115,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 241,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 2,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.14,
+    "voidBox": {
+     "x": 1200,
+     "y": 120,
+     "w": 240,
+     "h": 780
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#f8fafc",
+    "sidebar": null,
+    "topbar": {
+     "h": 45
+    },
+    "canvas": {
+     "left": 237,
+     "right": 241
+    },
+    "hero": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "chars": 30,
+     "lines": 1,
+     "size": 20,
+     "vw": 1.4,
+     "font": "Plus Jakarta Sans",
+     "weight": 800,
+     "tracking": 0,
+     "leading": 1.4,
+     "top": 115,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 9,
+     "firstScreen": 9,
+     "ragged": [],
+     "voids": [
+      {
+       "gap": 102,
+       "at": 697,
+       "panel": "Catatan Kehadiran Hari Ini"
+      }
+     ]
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 13,
+     "radii": [
+      [
+       16,
+       9
+      ],
+      [
+       12,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       24,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 1,
+     "softShadows": 8,
+     "shadowSamples": [
+      "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px"
+     ],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 161,
+       "size": 32,
+       "radius": "9999px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 5,
+     "tabularShare": 0,
+     "kpiMax": 12
+    },
+    "rows": {
+     "count": 3,
+     "median": 57
+    },
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.95,
+     "tiny": 29,
+     "tinySamples": [
+      "v1.0 (UI Prototype) 10px",
+      "79.1% Tingkat Kehadiran 10px",
+      "> Toleransi 15 Menit 10px",
+      "1 Perlu Persetujuan 10px"
+     ],
+     "sizes": [
+      10,
+      11,
+      12,
+      14,
+      16,
+      20,
+      24
+     ]
+    },
+    "title": {
+     "text": "Monitoring Kehadiran Real-time",
+     "size": 20,
+     "top": 115
+    },
+    "colourShare": 0.009
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.72,
+    0.61
+   ],
+   "motion": {
+    "elements": 3,
+    "css": 3,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1187,
+     "screens": 1.2,
+     "words": 260,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 10,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "chars": 30,
+     "lines": 1,
+     "size": 20,
+     "vw": 2.6,
+     "font": "Plus Jakarta Sans",
+     "weight": 800,
+     "tracking": 0,
+     "leading": 1.4,
+     "top": 115,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "lines": 1,
+     "size": 20,
+     "font": "Plus Jakarta Sans"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Plus Jakarta Sans",
+       "share": 0.9,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.1,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      14,
+      16,
+      20,
+      24
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Plus Jakarta Sans",
+      "size": 11,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.6
+     },
+     "measureChars": 65,
+     "max": {
+      "size": 24,
+      "vw": 3.1,
+      "font": "ui-monospace",
+      "text": "38"
+     },
+     "monoShare": 0.1,
+     "monoProseShare": 0.1,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "v1.0 (UI Prototype)",
+      "PORTAL ADMIN",
+      "38",
+      "4",
+      "3",
+      "2"
+     ],
+     "microLabels": 8,
+     "microLabelShare": 0.063,
+     "microSamples": [
+      "Karyawan",
+      "Jam Masuk",
+      "Jarak & Lokasi",
+      "IP & Perangkat",
+      "Status",
+      "Aksi"
+     ],
+     "upperShare": 0.11,
+     "centerShare": 0.11,
+     "smallText": 54
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f8fafc",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.4,
+      "l": 0.98
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 358,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#64748b",
+       "share": 0.26
+      },
+      {
+       "color": "#94a3b8",
+       "share": 0.13
+      },
+      {
+       "color": "#9f1239",
+       "share": 0.11
+      },
+      {
+       "color": "#0f172a",
+       "share": 0.11
+      },
+      {
+       "color": "#e11d48",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#0f172a",
+      "hsl": {
+       "h": 222,
+       "s": 0.47,
+       "l": 0.11
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "07:40 WIB",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#94a3b8",
+       "bg": "#f8fafc"
+      },
+      {
+       "text": "1.2 MB",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#94a3b8",
+       "bg": "#f8fafc"
+      },
+      {
+       "text": "Hadir Tepat Waktu",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "/ 48",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Terlambat",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Karyawan",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 7,
+     "radius": 12,
+     "height": 36,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Mode Admin (HRD)",
+      "Kelola QR Statis",
+      "Ekspor Excel",
+      "Setujui",
+      "Tolak"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 8,
+     "shadowOverlay": 4,
+     "shadowSamples": [
+      "div.flex.flex-col → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 6,
+     "hairlineSamples": [
+      "header.bg-slate-900.text-slate-300 768px",
+      "div.p-4.border-b 734px",
+      "div.p-3.bg-slate-50 734px",
+      "div.flex.items-center 702px",
+      "div.flex.items-center 702px"
+     ],
+     "outlinedBoxes": 11,
+     "dashed": 0,
+     "blurred": 2,
+     "roundedBoxes": 12,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 220
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 45,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "plus jakarta sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1187,
+    "margins": {
+     "left": 33,
+     "right": 29
+    },
+    "sections": [
+     {
+      "sel": "div.flex.flex-col",
+      "tag": "div",
+      "top": 69,
+      "height": 127,
+      "words": 23,
+      "media": 0,
+      "middle": 28,
+      "heading": {
+       "text": "Monitoring Kehadiran Real-time",
+       "size": 20,
+       "tag": "h1"
+      },
+      "left": 37,
+      "right": 37,
+      "textLeft": 37,
+      "textRight": 66,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.grid.grid-cols-1",
+      "tag": "div",
+      "top": 358,
+      "height": 774,
+      "words": 146,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Catatan Kehadiran Hari Ini",
+       "size": 14,
+       "tag": "h2"
+      },
+      "left": 29,
+      "right": 29,
+      "textLeft": 29,
+      "textRight": 29,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Monitoring Kehadiran Real-time",
+      "size": 20,
+      "top": 115,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 33,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 2,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#f8fafc",
+    "sidebar": null,
+    "topbar": {
+     "h": 45
+    },
+    "canvas": {
+     "left": 29,
+     "right": 29
+    },
+    "hero": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "chars": 30,
+     "lines": 1,
+     "size": 20,
+     "vw": 2.6,
+     "font": "Plus Jakarta Sans",
+     "weight": 800,
+     "tracking": 0,
+     "leading": 1.4,
+     "top": 115,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 9,
+     "firstScreen": 8,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 12,
+     "radii": [
+      [
+       16,
+       9
+      ],
+      [
+       12,
+       2
+      ],
+      [
+       24,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 1,
+     "softShadows": 8,
+     "shadowSamples": [
+      "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px"
+     ],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 161,
+       "size": 32,
+       "radius": "9999px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 5,
+     "tabularShare": 0,
+     "kpiMax": 12
+    },
+    "rows": {
+     "count": 3,
+     "median": 57
+    },
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.95,
+     "tiny": 29,
+     "tinySamples": [
+      "v1.0 (UI Prototype) 10px",
+      "79.1% Tingkat Kehadiran 10px",
+      "> Toleransi 15 Menit 10px",
+      "1 Perlu Persetujuan 10px"
+     ],
+     "sizes": [
+      10,
+      11,
+      12,
+      14,
+      16,
+      20,
+      24
+     ]
+    },
+    "title": {
+     "text": "Monitoring Kehadiran Real-time",
+     "size": 20,
+     "top": 115
+    },
+    "colourShare": 0.028
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.73,
+    0.59
+   ],
+   "motion": {
+    "elements": 3,
+    "css": 3,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 1632,
+     "screens": 1.9,
+     "words": 257,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 10,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "chars": 30,
+     "lines": 1,
+     "size": 20,
+     "vw": 5.1,
+     "font": "Plus Jakarta Sans",
+     "weight": 800,
+     "tracking": 0,
+     "leading": 1.4,
+     "top": 131,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "lines": 1,
+     "size": 20,
+     "font": "Plus Jakarta Sans"
+    },
+    "headings": [
+     {
+      "text": "38 / 48",
+      "words": 3,
+      "chars": 7,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "ui-monospace",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.33,
+      "upper": false,
+      "italic": false,
+      "mono": true,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 323,
+      "mixedFonts": [
+       "ui-monospace",
+       "Plus Jakarta Sans"
+      ],
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "4 Karyawan",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "ui-monospace",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.33,
+      "upper": false,
+      "italic": false,
+      "mono": true,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.36,
+      "top": 323,
+      "mixedFonts": [
+       "ui-monospace",
+       "Plus Jakarta Sans"
+      ],
+      "tag": "p",
+      "kind": "heading"
+     },
+     {
+      "text": "3 Karyawan",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "ui-monospace",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.33,
+      "upper": false,
+      "italic": false,
+      "mono": true,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 449,
+      "mixedFonts": [
+       "ui-monospace",
+       "Plus Jakarta Sans"
+      ],
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "2 Ditolak",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "ui-monospace",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.33,
+      "upper": false,
+      "italic": false,
+      "mono": true,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.36,
+      "top": 449,
+      "mixedFonts": [
+       "ui-monospace",
+       "Plus Jakarta Sans"
+      ],
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 4,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 4
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Plus Jakarta Sans",
+       "share": 0.91,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.09,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      14,
+      16,
+      20,
+      24
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Plus Jakarta Sans",
+      "size": 11,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.6
+     },
+     "measureChars": 49,
+     "max": {
+      "size": 24,
+      "vw": 6.2,
+      "font": "ui-monospace",
+      "text": "38"
+     },
+     "monoShare": 0.09,
+     "monoProseShare": 0.09,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "PORTAL ADMIN",
+      "38",
+      "4",
+      "3",
+      "2",
+      "07:52 WIB"
+     ],
+     "microLabels": 8,
+     "microLabelShare": 0.064,
+     "microSamples": [
+      "Karyawan",
+      "Jam Masuk",
+      "Jarak & Lokasi",
+      "IP & Perangkat",
+      "Status",
+      "Aksi"
+     ],
+     "upperShare": 0.11,
+     "centerShare": 0.11,
+     "smallText": 53
+    },
+    "eyebrows": [
+     {
+      "text": "Hadir Tepat Waktu",
+      "above": "38 / 48",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 299
+     },
+     {
+      "text": "Terlambat",
+      "above": "4 Karyawan",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 299
+     },
+     {
+      "text": "Izin / Sakit",
+      "above": "3 Karyawan",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 425
+     },
+     {
+      "text": "Percobaan Anomali",
+      "above": "2 Ditolak",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 425
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f8fafc",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.4,
+      "l": 0.98
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 546,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#64748b",
+       "share": 0.26
+      },
+      {
+       "color": "#94a3b8",
+       "share": 0.12
+      },
+      {
+       "color": "#9f1239",
+       "share": 0.11
+      },
+      {
+       "color": "#0f172a",
+       "share": 0.11
+      },
+      {
+       "color": "#e11d48",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#0f172a",
+      "hsl": {
+       "h": 222,
+       "s": 0.47,
+       "l": 0.11
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "07:40 WIB",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#94a3b8",
+       "bg": "#f8fafc"
+      },
+      {
+       "text": "1.2 MB",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#94a3b8",
+       "bg": "#f8fafc"
+      },
+      {
+       "text": "Hadir Tepat Waktu",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "/ 48",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Izin / Sakit",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Karyawan",
+       "ratio": 2.6,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#94a3b8",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 5,
+     "radius": 12,
+     "height": 36,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Mode Admin (HRD)",
+      "Kelola QR Statis",
+      "Ekspor Excel",
+      "Cetak Lembar QR",
+      "Rotasi Token Baru"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 8,
+     "shadowOverlay": 4,
+     "shadowSamples": [
+      "div.flex.flex-col → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0",
+      "div.bg-white.p-4 → rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 6,
+     "hairlineSamples": [
+      "header.bg-slate-900.text-slate-300 390px",
+      "div.p-4.border-b 356px",
+      "div.p-3.bg-slate-50 356px",
+      "div.flex.items-center 324px",
+      "div.flex.items-center 324px"
+     ],
+     "outlinedBoxes": 12,
+     "dashed": 0,
+     "blurred": 2,
+     "roundedBoxes": 13,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 282
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 61,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "plus jakarta sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 1632,
+    "margins": {
+     "left": 33,
+     "right": 17
+    },
+    "sections": [
+     {
+      "sel": "div.flex.flex-col",
+      "tag": "div",
+      "top": 85,
+      "height": 173,
+      "words": 23,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Monitoring Kehadiran Real-time",
+       "size": 20,
+       "tag": "h1"
+      },
+      "left": 37,
+      "right": 40,
+      "textLeft": 37,
+      "textRight": 40,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.grid.grid-cols-2",
+      "tag": "div",
+      "top": 282,
+      "height": 240,
+      "words": 30,
+      "media": 0,
+      "middle": 70,
+      "heading": {
+       "text": "38",
+       "size": 24,
+       "tag": "p"
+      },
+      "left": 33,
+      "right": 59,
+      "textLeft": 33,
+      "textRight": 59,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.grid.grid-cols-1",
+      "tag": "div",
+      "top": 546,
+      "height": 983,
+      "words": 145,
+      "media": 0,
+      "middle": 43,
+      "heading": {
+       "text": "Catatan Kehadiran Hari Ini",
+       "size": 14,
+       "tag": "h2"
+      },
+      "left": 29,
+      "right": 0,
+      "textLeft": 29,
+      "textRight": 17,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Monitoring Kehadiran Real-time",
+      "size": 20,
+      "top": 131,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 33,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 2,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": false,
+    "ground": "#f8fafc",
+    "sidebar": null,
+    "topbar": {
+     "h": 61
+    },
+    "canvas": {
+     "left": 29,
+     "right": -54
+    },
+    "hero": {
+     "text": "Monitoring Kehadiran Real-time",
+     "words": 3,
+     "chars": 30,
+     "lines": 1,
+     "size": 20,
+     "vw": 5.1,
+     "font": "Plus Jakarta Sans",
+     "weight": 800,
+     "tracking": 0,
+     "leading": 1.4,
+     "top": 131,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 9,
+     "firstScreen": 7,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 12,
+     "radii": [
+      [
+       16,
+       9
+      ],
+      [
+       12,
+       2
+      ],
+      [
+       24,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 1,
+     "softShadows": 8,
+     "shadowSamples": [
+      "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px"
+     ],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 161,
+       "size": 32,
+       "radius": "9999px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 5,
+     "tabularShare": 0,
+     "kpiMax": 12
+    },
+    "rows": {
+     "count": 3,
+     "median": 105
+    },
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.95,
+     "tiny": 28,
+     "tinySamples": [
+      "79.1% Tingkat Kehadiran 10px",
+      "> Toleransi 15 Menit 10px",
+      "1 Perlu Persetujuan 10px",
+      "IP & Radius Tidak Sesuai 10px"
+     ],
+     "sizes": [
+      10,
+      11,
+      12,
+      14,
+      16,
+      20,
+      24
+     ]
+    },
+    "title": {
+     "text": "Monitoring Kehadiran Real-time",
+     "size": 20,
+     "top": 131
+    },
+    "colourShare": 0.016
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "8 tiny uppercase letter-spaced labels (e.g. \"Karyawan\", \"Jam Masuk\", \"Jarak & Lokasi\", \"IP & Perangkat\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Unreadable text: \"07:40 WIB\" 2.5:1 (#94a3b8 on #f8fafc); \"1.2 MB\" 2.5:1 (#94a3b8 on #f8fafc)",
+   "fix": "Raise contrast to at least 4.5:1 for text, 3:1 for large display.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "heavy-shadow",
+   "width": 1440,
+   "message": "1 panel shadow(s) heavy enough to read as floating: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
+   "fix": "Panels sit on the ground: separate them with a fill one step from the ground or a quiet 1px border. A shadow, if any, is under 8% black with a small blur. Real overlays (menus, dialogs, popovers) may float.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "29 text blocks under 11px: v1.0 (UI Prototype) 10px, 79.1% Tingkat Kehadiran 10px, > Toleransi 15 Menit 10px, 1 Perlu Persetujuan 10px.",
+   "fix": "Nothing below 11px; secondary text 12px, data 13–14px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "panel-void",
+   "width": 1440,
+   "message": "1 card(s) hold a blank band inside: 102px in \"Catatan Kehadiran Hari Ini\".",
+   "fix": "A card stretches to its neighbour only when it has content to fill. Keep a legend or a note directly under its chart (only an action or a total may sit at a stretched card's foot), let a short card keep its own height (align-items: start), and let a filtered block shrink to its rows."
+  },
+  {
+   "level": "WARN",
+   "id": "mixed-font-headline",
+   "width": 390,
+   "message": "4 headline(s) switch typeface or to italic mid-line (the \"one italic serif word\" move).",
+   "fix": "Set the whole headline in one face. Emphasis comes from the words."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\NAUFAL\\ABSENSI\\AbsensiPKL\\.taste-skill\\before\\admin\\desktop-fold.jpg",
+   "pages": [
+    "C:\\NAUFAL\\ABSENSI\\AbsensiPKL\\.taste-skill\\before\\admin\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\NAUFAL\\ABSENSI\\AbsensiPKL\\.taste-skill\\before\\admin\\tablet-fold.jpg",
+   "pages": [
+    "C:\\NAUFAL\\ABSENSI\\AbsensiPKL\\.taste-skill\\before\\admin\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\NAUFAL\\ABSENSI\\AbsensiPKL\\.taste-skill\\before\\admin\\mobile-fold.jpg",
+   "pages": [
+    "C:\\NAUFAL\\ABSENSI\\AbsensiPKL\\.taste-skill\\before\\admin\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}
