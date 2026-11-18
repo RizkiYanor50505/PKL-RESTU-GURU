@@ -1,0 +1,173 @@
+@extends('penyewaanreklame.layouts.app')
+
+@section('title', 'Daftar Titik Reklame')
+
+@section('content')
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+            <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+                <span>/</span>
+                <span class="text-slate-700">Master Titik Reklame</span>
+            </div>
+            <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-900">Daftar Titik Reklame</h1>
+            <p class="mt-1 text-sm text-slate-500">
+                Data operasional lokasi reklame Restu Guru Promosindo (Internal &amp; Mitra).
+            </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+            <a href="{{ route('penyewaanreklame.katalog') }}" target="_blank"
+               class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                <i class="ph ph-globe text-base text-violet-600"></i>
+                Lihat Katalog Publik
+            </a>
+        </div>
+    </div>
+
+    {{-- Kartu Ringkasan Status Titik --}}
+    <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Total Titik</p>
+            <p class="mt-2 text-2xl font-bold text-slate-900">{{ $summary['total'] }}</p>
+        </div>
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">Tersedia</p>
+            <p class="mt-2 text-2xl font-bold text-emerald-700">{{ $summary['tersedia'] }}</p>
+        </div>
+        <div class="rounded-xl border border-violet-200 bg-violet-50/50 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-violet-700">Tersewa</p>
+            <p class="mt-2 text-2xl font-bold text-violet-700">{{ $summary['tersewa'] }}</p>
+        </div>
+        <div class="rounded-xl border border-amber-200 bg-amber-50/50 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-amber-700">Maintenance</p>
+            <p class="mt-2 text-2xl font-bold text-amber-700">{{ $summary['maintenance'] }}</p>
+        </div>
+    </div>
+
+    {{-- Filter & Pencarian --}}
+    <form method="GET" action="{{ route('penyewaanreklame.titik-reklame.index') }}"
+          class="mt-6 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-5">
+        <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari kode, alamat, ukuran..."
+               class="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+
+        <select name="wilayah" class="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+            <option value="">Semua Wilayah</option>
+            @foreach ($daftarWilayah as $wilayah)
+                <option value="{{ $wilayah }}" @selected(request('wilayah') === $wilayah)>{{ $wilayah }}</option>
+            @endforeach
+        </select>
+
+        <select name="kategori_space" class="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+            <option value="">Semua Kategori Space</option>
+            <option value="internal" @selected(request('kategori_space') === 'internal')>Internal (Restu Guru)</option>
+            <option value="mitra" @selected(request('kategori_space') === 'mitra')>Mitra Restu Guru</option>
+        </select>
+
+        <select name="status_titik" class="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+            <option value="">Semua Status</option>
+            <option value="Tersedia" @selected(request('status_titik') === 'Tersedia')>Tersedia</option>
+            <option value="Tersewa" @selected(request('status_titik') === 'Tersewa')>Tersewa</option>
+            <option value="Maintenance" @selected(request('status_titik') === 'Maintenance')>Maintenance</option>
+        </select>
+
+        <div class="flex gap-2">
+            <button type="submit"
+                    class="flex-1 rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700">
+                Filter
+            </button>
+            <a href="{{ route('penyewaanreklame.titik-reklame.index') }}"
+               class="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">
+                Reset
+            </a>
+        </div>
+    </form>
+
+    {{-- Tabel Data Titik Reklame --}}
+    <div class="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
+                <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-600">
+                    <tr>
+                        <th class="px-4 py-3">Kode &amp; Space</th>
+                        <th class="px-4 py-3">Wilayah &amp; Lokasi</th>
+                        <th class="px-4 py-3">Spesifikasi</th>
+                        <th class="px-4 py-3">Status &amp; Penyewa Aktif</th>
+                        <th class="px-4 py-3">Izin / Pajak</th>
+                        <th class="px-4 py-3 text-right">Maps</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @forelse ($titikReklames as $titik)
+                        @php
+                            $statusBadge = match ($titik->status_titik) {
+                                'Tersedia' => 'bg-emerald-100 text-emerald-700',
+                                'Tersewa' => 'bg-violet-100 text-violet-700',
+                                default => 'bg-amber-100 text-amber-700',
+                            };
+                            $mapsUrl = $titik->google_maps_url
+                                ?? ($titik->latitude && $titik->longitude
+                                    ? "https://maps.google.com/?q={$titik->latitude},{$titik->longitude}"
+                                    : null);
+                        @endphp
+                        <tr class="hover:bg-slate-50/70">
+                            <td class="whitespace-nowrap px-4 py-3.5 align-top">
+                                <div class="font-mono text-xs font-bold text-slate-900">{{ $titik->kode_titik }}</div>
+                                <span class="mt-1 inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold {{ $titik->kategori_space === 'internal' ? 'bg-slate-900 text-white' : 'bg-sky-100 text-sky-700' }}">
+                                    {{ $titik->kategori_space === 'internal' ? 'Internal RGP' : 'Mitra RGP' }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3.5 align-top">
+                                <div class="font-semibold text-slate-900">{{ $titik->wilayah }}</div>
+                                <div class="mt-0.5 max-w-sm text-xs leading-relaxed text-slate-600">{{ $titik->alamat_lokasi }}</div>
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-3.5 align-top text-xs text-slate-700">
+                                <div class="font-medium">{{ $titik->ukuran }}</div>
+                                <div class="mt-0.5 text-slate-500">{{ $titik->spesifikasi_lampu ?? '-' }}</div>
+                            </td>
+                            <td class="px-4 py-3.5 align-top">
+                                <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $statusBadge }}">
+                                    {{ $titik->status_titik }}
+                                </span>
+                                @if ($titik->status_titik === 'Tersewa' && $titik->kontrakAktif)
+                                    <div class="mt-1.5 text-xs">
+                                        <div class="font-semibold text-slate-800">
+                                            {{ $titik->kontrakAktif->klien->nama_klien ?? '-' }}
+                                        </div>
+                                        <div class="text-slate-500">
+                                            {{ optional($titik->kontrakAktif->tgl_mulai)->format('d M Y') }}
+                                            &ndash;
+                                            {{ optional($titik->kontrakAktif->tgl_berakhir)->format('d M Y') }}
+                                            ({{ $titik->kontrakAktif->durasi_bulan }} bln)
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-3.5 align-top text-xs text-slate-600">
+                                <div>Izin: {{ optional($titik->tgl_izin_berakhir)->format('d M Y') ?? '-' }}</div>
+                                <div class="mt-0.5">Pajak: {{ optional($titik->tgl_pajak_berakhir)->format('d M Y') ?? '-' }}</div>
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-3.5 text-right align-top">
+                                @if ($mapsUrl)
+                                    <a href="{{ $mapsUrl }}" target="_blank" rel="noopener"
+                                       class="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                                        <i class="ph ph-map-pin text-sm text-rose-500"></i>
+                                        Buka Maps
+                                    </a>
+                                @else
+                                    <span class="text-xs italic text-slate-400">Belum ada titik</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-4 py-10 text-center text-sm text-slate-500">
+                                Belum ada data titik reklame yang sesuai filter.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endsection
