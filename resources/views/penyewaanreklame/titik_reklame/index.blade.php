@@ -3,6 +3,17 @@
 @section('title', 'Daftar Titik Reklame')
 
 @section('content')
+    @if (session('success'))
+        <div class="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="mb-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
@@ -17,10 +28,15 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <a href="{{ route('penyewaanreklame.katalog') }}" target="_blank"
+            <a href="{{ route('penyewaanreklame.katalog') }}" target="_blank" rel="noopener"
                class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
                 <i class="ph ph-globe text-base text-violet-600"></i>
                 Lihat Katalog Publik
+            </a>
+            <a href="{{ route('penyewaanreklame.titik-reklame.create') }}"
+               class="inline-flex items-center gap-1.5 rounded-lg bg-violet-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-violet-700">
+                <i class="ph ph-plus text-base"></i>
+                Tambah Titik Reklame
             </a>
         </div>
     </div>
@@ -94,7 +110,7 @@
                         <th class="px-4 py-3">Spesifikasi</th>
                         <th class="px-4 py-3">Status &amp; Penyewa Aktif</th>
                         <th class="px-4 py-3">Izin / Pajak</th>
-                        <th class="px-4 py-3 text-right">Maps</th>
+                        <th class="px-4 py-3 text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
@@ -112,10 +128,15 @@
                         @endphp
                         <tr class="hover:bg-slate-50/70">
                             <td class="whitespace-nowrap px-4 py-3.5 align-top">
-                                <div class="font-mono text-xs font-bold text-slate-900">{{ $titik->kode_titik }}</div>
-                                <span class="mt-1 inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold {{ $titik->kategori_space === 'internal' ? 'bg-slate-900 text-white' : 'bg-sky-100 text-sky-700' }}">
-                                    {{ $titik->kategori_space === 'internal' ? 'Internal RGP' : 'Mitra RGP' }}
-                                </span>
+                                <a href="{{ route('penyewaanreklame.titik-reklame.show', $titik) }}"
+                                   class="font-mono text-xs font-bold text-violet-700 hover:underline">
+                                    {{ $titik->kode_titik }}
+                                </a>
+                                <div>
+                                    <span class="mt-1 inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold {{ $titik->kategori_space === 'internal' ? 'bg-slate-900 text-white' : 'bg-sky-100 text-sky-700' }}">
+                                        {{ $titik->kategori_space === 'internal' ? 'Internal RGP' : 'Mitra RGP' }}
+                                    </span>
+                                </div>
                             </td>
                             <td class="px-4 py-3.5 align-top">
                                 <div class="font-semibold text-slate-900">{{ $titik->wilayah }}</div>
@@ -148,15 +169,31 @@
                                 <div class="mt-0.5">Pajak: {{ optional($titik->tgl_pajak_berakhir)->format('d M Y') ?? '-' }}</div>
                             </td>
                             <td class="whitespace-nowrap px-4 py-3.5 text-right align-top">
-                                @if ($mapsUrl)
-                                    <a href="{{ $mapsUrl }}" target="_blank" rel="noopener"
-                                       class="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
-                                        <i class="ph ph-map-pin text-sm text-rose-500"></i>
-                                        Buka Maps
+                                <div class="inline-flex items-center gap-1.5">
+                                    @if ($mapsUrl)
+                                        <a href="{{ $mapsUrl }}" target="_blank" rel="noopener" title="Buka Google Maps"
+                                           class="inline-flex items-center rounded-lg border border-slate-200 p-1.5 text-slate-600 hover:bg-slate-50">
+                                            <i class="ph ph-map-pin text-sm text-rose-500"></i>
+                                        </a>
+                                    @endif
+                                    <a href="{{ route('penyewaanreklame.titik-reklame.show', $titik) }}"
+                                       class="rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                                        Detail
                                     </a>
-                                @else
-                                    <span class="text-xs italic text-slate-400">Belum ada titik</span>
-                                @endif
+                                    <a href="{{ route('penyewaanreklame.titik-reklame.edit', $titik) }}"
+                                       class="rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-violet-700 hover:bg-violet-50">
+                                        Edit
+                                    </a>
+                                    <form method="POST" action="{{ route('penyewaanreklame.titik-reklame.destroy', $titik) }}"
+                                          onsubmit="return confirm('Yakin ingin menghapus titik {{ $titik->kode_titik }}?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="rounded-lg border border-rose-200 px-2.5 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty

@@ -114,17 +114,19 @@
                         </div>
                     @endif
 
-                    <div class="mt-4 pt-2">
+                    <div class="mt-4 flex gap-2 pt-2">
+                        <a href="{{ route('penyewaanreklame.katalog.show', $titik) }}"
+                           class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-violet-600 px-3 py-2 text-xs font-semibold text-white hover:bg-violet-700">
+                            <i class="ph ph-eye text-sm"></i>
+                            Detail &amp; Peta
+                        </a>
                         @if ($mapsUrl)
                             <a href="{{ $mapsUrl }}" target="_blank" rel="noopener"
-                               class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                               class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                               title="Buka Google Maps">
                                 <i class="ph ph-map-pin text-sm text-rose-500"></i>
-                                Lihat Titik di Google Maps
+                                Maps
                             </a>
-                        @else
-                            <div class="rounded-lg border border-dashed border-slate-200 px-3 py-2 text-center text-xs text-slate-400">
-                                Koordinat Google Maps belum tersedia
-                            </div>
                         @endif
                     </div>
                 </div>

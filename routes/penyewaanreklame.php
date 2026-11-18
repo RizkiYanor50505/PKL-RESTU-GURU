@@ -18,6 +18,10 @@ Route::get('/katalog', [TitikReklameController::class, 'katalog'])
     ->name('katalog')
     ->withoutMiddleware([EnsureUserRole::class]);
 
+Route::get('/katalog/{titikReklame}', [TitikReklameController::class, 'katalogShow'])
+    ->name('katalog.show')
+    ->withoutMiddleware([EnsureUserRole::class]);
+
 // Rute Admin Internal (Otomatis dilindungi middleware role:karyawan,manajer dari bootstrap/app.php)
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/titik-reklame', [TitikReklameController::class, 'index'])->name('titik-reklame.index');
+Route::resource('titik-reklame', TitikReklameController::class);
