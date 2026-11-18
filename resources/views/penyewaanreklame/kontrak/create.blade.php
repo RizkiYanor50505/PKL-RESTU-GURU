@@ -5,9 +5,9 @@
 @section('content')
     <div>
         <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-            <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+            <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
             <span>/</span>
-            <a href="{{ route('penyewaanreklame.kontrak.index') }}" class="hover:text-violet-600">Kontrak Sewa</a>
+            <a href="{{ route('penyewaanreklame.kontrak.index') }}" class="hover:text-emerald-600">Kontrak Sewa</a>
             <span>/</span>
             <span class="text-slate-700">Buat Penawaran</span>
         </div>
@@ -38,7 +38,7 @@
                     Titik Reklame <span class="text-rose-500">*</span>
                 </label>
                 <select id="titik_reklame_id" name="titik_reklame_id" required
-                        class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                        class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
                     <option value="">-- Pilih Titik Reklame --</option>
                     @foreach ($titikReklames as $titik)
                         <option value="{{ $titik->id }}"
@@ -54,7 +54,7 @@
                     Klien / Calon Penyewa <span class="text-rose-500">*</span>
                 </label>
                 <select id="klien_id" name="klien_id" required
-                        class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                        class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
                     <option value="">-- Pilih Klien --</option>
                     @foreach ($kliens as $klien)
                         <option value="{{ $klien->id }}" @selected((int) old('klien_id') === $klien->id)>
@@ -63,7 +63,7 @@
                     @endforeach
                 </select>
                 <p class="mt-1 text-[11px] text-slate-500">
-                    Belum ada di daftar? <a href="{{ route('penyewaanreklame.klien.create') }}" class="font-semibold text-violet-600 hover:underline">Tambah Klien Baru</a>
+                    Belum ada di daftar? <a href="{{ route('penyewaanreklame.klien.create') }}" class="font-semibold text-emerald-600 hover:underline">Tambah Klien Baru</a>
                 </p>
             </div>
 
@@ -73,7 +73,7 @@
                 </label>
                 <input id="no_penawaran" name="no_penawaran" type="text" required
                        value="{{ old('no_penawaran', 'PNW/RGP/' . date('Y/m') . '/' . str_pad((string) random_int(1, 999), 3, '0', STR_PAD_LEFT)) }}"
-                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
                 <p class="mt-1 text-[11px] text-slate-500">Nomor surat penawaran yang sama dapat digunakan untuk beberapa titik sekaligus.</p>
             </div>
 
@@ -83,7 +83,7 @@
                 </label>
                 <input id="tgl_penawaran" name="tgl_penawaran" type="date" required
                        value="{{ old('tgl_penawaran', date('Y-m-d')) }}"
-                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             </div>
 
             <div>
@@ -92,7 +92,7 @@
                 </label>
                 <input id="durasi_bulan" name="durasi_bulan" type="number" min="1" max="36" required
                        value="{{ old('durasi_bulan', 3) }}"
-                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
                 <p class="mt-1 text-[11px] text-slate-500">Fleksibel minimal 1 bulan hingga 1 tahun penuh (12 bulan).</p>
             </div>
 
@@ -102,7 +102,7 @@
                 </label>
                 <input id="nilai_kontrak" name="nilai_kontrak" type="number" min="0" step="1000" required
                        value="{{ old('nilai_kontrak', 0) }}"
-                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                       class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             </div>
 
             <div class="sm:col-span-2">
@@ -111,7 +111,7 @@
                 </label>
                 <textarea id="materi_iklan" name="materi_iklan" rows="2"
                           placeholder="Deskripsi tema/konten visual reklame yang ditawarkan..."
-                          class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">{{ old('materi_iklan') }}</textarea>
+                          class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">{{ old('materi_iklan') }}</textarea>
             </div>
 
             <div class="sm:col-span-2">
@@ -119,7 +119,7 @@
                     Catatan Tambahan
                 </label>
                 <textarea id="catatan" name="catatan" rows="2"
-                          class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">{{ old('catatan') }}</textarea>
+                          class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">{{ old('catatan') }}</textarea>
             </div>
         </div>
 
@@ -129,7 +129,7 @@
                 Batal
             </a>
             <button type="submit"
-                    class="rounded-lg bg-violet-600 px-5 py-2 text-sm font-semibold text-white hover:bg-violet-700">
+                    class="rounded-lg bg-obsidian px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
                 Simpan Surat Penawaran
             </button>
         </div>

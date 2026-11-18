@@ -8,7 +8,7 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
                 <span>/</span>
                 <span class="text-slate-700">Master Titik Reklame</span>
             </div>
@@ -20,12 +20,12 @@
 
         <div class="flex flex-wrap items-center gap-2">
             <a href="{{ route('penyewaanreklame.titik-reklame.import') }}"
-               class="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">
-                <i class="ph ph-upload-simple text-base text-violet-600"></i>
+               class="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700  transition hover:bg-slate-50">
+                <i class="ph ph-upload-simple text-base text-emerald-600"></i>
                 Import CSV
             </a>
             <a href="{{ route('penyewaanreklame.titik-reklame.create') }}"
-               class="inline-flex items-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-violet-200 transition hover:bg-violet-700">
+               class="inline-flex items-center gap-1.5 rounded-xl bg-obsidian px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-800">
                 <i class="ph ph-plus text-base"></i>
                 Tambah Titik Reklame
             </a>
@@ -34,19 +34,19 @@
 
     {{-- Kartu Ringkasan Status Titik --}}
     <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 bg-white p-4 ">
             <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Total Titik</p>
             <p class="mt-2 text-2xl font-extrabold text-slate-900">{{ $summary['total'] }}</p>
         </div>
-        <div class="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 shadow-sm">
+        <div class="rounded-2xl border border-slate-200/90 bg-white p-4 ">
             <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">Tersedia</p>
             <p class="mt-2 text-2xl font-extrabold text-emerald-700">{{ $summary['tersedia'] }}</p>
         </div>
-        <div class="rounded-2xl border border-violet-200 bg-violet-50/50 p-4 shadow-sm">
-            <p class="text-xs font-semibold uppercase tracking-wide text-violet-700">Tersewa</p>
-            <p class="mt-2 text-2xl font-extrabold text-violet-700">{{ $summary['tersewa'] }}</p>
+        <div class="rounded-2xl border border-slate-200 bg-white p-4 ">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-900">Tersewa</p>
+            <p class="mt-2 text-2xl font-extrabold text-slate-900">{{ $summary['tersewa'] }}</p>
         </div>
-        <div class="rounded-2xl border border-amber-200 bg-amber-50/50 p-4 shadow-sm">
+        <div class="rounded-2xl border border-slate-200/90 bg-white p-4 ">
             <p class="text-xs font-semibold uppercase tracking-wide text-amber-700">Maintenance</p>
             <p class="mt-2 text-2xl font-extrabold text-amber-700">{{ $summary['maintenance'] }}</p>
         </div>
@@ -54,27 +54,27 @@
 
     {{-- Filter & Pencarian --}}
     <form method="GET" action="{{ route('penyewaanreklame.titik-reklame.index') }}"
-          class="mt-6 grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-5">
+          class="mt-6 grid gap-3 rounded-2xl border border-slate-200 bg-white p-4  sm:grid-cols-2 lg:grid-cols-5">
         <div class="relative">
             <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari kode, alamat, ukuran..."
-                   class="w-full rounded-xl border border-slate-200 py-2 pl-9 pr-3 text-sm focus:border-violet-500 focus:outline-none">
+                   class="w-full rounded-xl border border-slate-200 py-2 pl-9 pr-3 text-sm focus:border-slate-900 focus:outline-none">
         </div>
 
-        <select name="wilayah" class="rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+        <select name="wilayah" class="rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             <option value="">Semua Wilayah</option>
             @foreach ($daftarWilayah as $wilayah)
                 <option value="{{ $wilayah }}" @selected(request('wilayah') === $wilayah)>{{ $wilayah }}</option>
             @endforeach
         </select>
 
-        <select name="kategori_space" class="rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+        <select name="kategori_space" class="rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             <option value="">Semua Kategori Space</option>
             <option value="internal" @selected(request('kategori_space') === 'internal')>Internal (Restu Guru)</option>
             <option value="mitra" @selected(request('kategori_space') === 'mitra')>Mitra Restu Guru</option>
         </select>
 
-        <select name="status_titik" class="rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+        <select name="status_titik" class="rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             <option value="">Semua Status</option>
             <option value="Tersedia" @selected(request('status_titik') === 'Tersedia')>Tersedia</option>
             <option value="Tersewa" @selected(request('status_titik') === 'Tersewa')>Tersewa</option>
@@ -83,7 +83,7 @@
 
         <div class="flex gap-2">
             <button type="submit"
-                    class="flex-1 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700">
+                    class="flex-1 rounded-xl bg-obsidian px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
                 Filter
             </button>
             <a href="{{ route('penyewaanreklame.titik-reklame.index') }}"
@@ -94,7 +94,7 @@
     </form>
 
     {{-- Tabel Data Titik Reklame --}}
-    <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white ">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
                 <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-600">
@@ -112,7 +112,7 @@
                         @php
                             $statusBadge = match ($titik->status_titik) {
                                 'Tersedia' => 'bg-emerald-100 text-emerald-700',
-                                'Tersewa' => 'bg-violet-100 text-violet-700',
+                                'Tersewa' => 'bg-slate-900 text-white',
                                 default => 'bg-amber-100 text-amber-700',
                             };
                             $mapsUrl = $titik->google_maps_url
@@ -135,7 +135,7 @@
                                     @endif
                                     <div>
                                         <a href="{{ route('penyewaanreklame.titik-reklame.show', $titik) }}"
-                                           class="font-mono text-xs font-bold text-violet-700 hover:underline">
+                                           class="font-mono text-xs font-bold text-slate-900 hover:underline">
                                             {{ $titik->kode_titik }}
                                         </a>
                                         <div>
@@ -193,7 +193,7 @@
                                         Detail
                                     </a>
                                     <a href="{{ route('penyewaanreklame.titik-reklame.edit', $titik) }}"
-                                       class="rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-violet-700 transition hover:bg-violet-50">
+                                       class="rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-900 transition hover:bg-slate-100">
                                         Edit
                                     </a>
                                     <form method="POST" action="{{ route('penyewaanreklame.titik-reklame.destroy', $titik) }}"

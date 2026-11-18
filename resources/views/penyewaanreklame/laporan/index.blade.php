@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
                 <span>/</span>
                 <span class="text-slate-700">Laporan &amp; Rekap</span>
             </div>
@@ -60,7 +60,7 @@
 
         <div class="flex gap-2">
             <button type="submit"
-                    class="flex-1 rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700">
+                    class="flex-1 rounded-lg bg-obsidian px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
                 Terapkan
             </button>
             <a href="{{ route('penyewaanreklame.laporan.index') }}"
@@ -77,11 +77,11 @@
             <p class="mt-2 text-2xl font-bold text-slate-900">{{ $rekap['total_titik'] }}</p>
             <p class="mt-0.5 text-xs text-slate-500">{{ $rekap['tersedia'] }} Tersedia &middot; {{ $rekap['tersewa'] }} Tersewa</p>
         </div>
-        <div class="rounded-xl border border-violet-200 bg-violet-50/50 p-4">
-            <p class="text-xs font-semibold uppercase text-violet-700">Total Kontrak (Aktif/Selesai)</p>
-            <p class="mt-2 text-xl font-bold text-violet-700">Rp {{ number_format($rekap['total_nilai'], 0, ',', '.') }}</p>
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+            <p class="text-xs font-semibold uppercase text-slate-900">Total Kontrak (Aktif/Selesai)</p>
+            <p class="mt-2 text-xl font-bold text-slate-900">Rp {{ number_format($rekap['total_nilai'], 0, ',', '.') }}</p>
         </div>
-        <div class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+        <div class="rounded-xl border border-slate-200/90 bg-white p-4">
             <p class="text-xs font-semibold uppercase text-emerald-700">Total Pembayaran Masuk</p>
             <p class="mt-2 text-xl font-bold text-emerald-700">Rp {{ number_format($rekap['total_terbayar'], 0, ',', '.') }}</p>
         </div>

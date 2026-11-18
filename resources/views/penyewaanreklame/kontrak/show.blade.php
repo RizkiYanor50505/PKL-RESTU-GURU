@@ -23,9 +23,9 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
                 <span>/</span>
-                <a href="{{ route('penyewaanreklame.kontrak.index') }}" class="hover:text-violet-600">Kontrak Sewa</a>
+                <a href="{{ route('penyewaanreklame.kontrak.index') }}" class="hover:text-emerald-600">Kontrak Sewa</a>
                 <span>/</span>
                 <span class="text-slate-700">{{ $kontrak->no_kontrak ?? $kontrak->no_penawaran }}</span>
             </div>
@@ -33,7 +33,7 @@
                 <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">
                     {{ $kontrak->no_kontrak ?? $kontrak->no_penawaran }}
                 </h1>
-                <span class="rounded-full bg-violet-100 px-3 py-0.5 text-xs font-bold uppercase text-violet-700">
+                <span class="rounded-full bg-slate-900 px-3 py-0.5 text-xs font-bold uppercase text-white">
                     {{ $kontrak->status_kontrak }}
                 </span>
                 <span class="rounded-full px-3 py-0.5 text-xs font-semibold {{ $kontrak->status_materi === 'perlu_dicopot' ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-700' }}">
@@ -48,7 +48,7 @@
                 @csrf
                 @method('PATCH')
                 <button type="submit"
-                        class="rounded-xl border border-rose-200 bg-white px-3.5 py-2 text-xs font-semibold text-rose-600 shadow-sm transition hover:bg-rose-50">
+                        class="rounded-xl border border-rose-200 bg-white px-3.5 py-2 text-xs font-semibold text-rose-600  transition hover:bg-rose-50">
                     Batalkan Transaksi
                 </button>
             </form>
@@ -57,13 +57,13 @@
 
     {{-- Stepper Alur Kontrak --}}
     @if ($stepIndex > 0)
-        <div class="mt-6 grid grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-4">
+        <div class="mt-6 grid grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-white p-4  sm:grid-cols-4">
             @foreach ([1 => '1. Penawaran', 2 => '2. ACC Klien', 3 => '3. Aktif & Terpasang', 4 => '4. Selesai / Copot'] as $idx => $label)
                 @php
                     $done = $stepIndex > $idx;
                     $current = $stepIndex === $idx;
                 @endphp
-                <div class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold {{ $current ? 'bg-violet-600 text-white shadow-sm' : ($done ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-50 text-slate-400') }}">
+                <div class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold {{ $current ? 'bg-obsidian text-white' : ($done ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-50 text-slate-400') }}">
                     <i class="ph {{ $done ? 'ph-check-circle' : ($current ? 'ph-dot-outline' : 'ph-circle') }} text-base"></i>
                     <span>{{ $label }}</span>
                 </div>
@@ -73,10 +73,10 @@
 
     {{-- Ringkasan Klien, Titik & Nilai --}}
     <div class="mt-6 grid gap-4 lg:grid-cols-3">
-        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 ">
             <div class="text-xs font-bold uppercase tracking-wide text-slate-500">Titik Reklame</div>
             <a href="{{ route('penyewaanreklame.titik-reklame.show', $kontrak->titikReklame) }}"
-               class="mt-2 block text-lg font-bold text-violet-700 hover:underline">
+               class="mt-2 block text-lg font-bold text-slate-900 hover:underline">
                 {{ $kontrak->titikReklame->kode_titik }}
             </a>
             <div class="text-sm font-semibold text-slate-800">{{ $kontrak->titikReklame->wilayah }}</div>
@@ -86,13 +86,13 @@
             </div>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 ">
             <div class="text-xs font-bold uppercase tracking-wide text-slate-500">Klien &amp; Skema Bayar</div>
             <a href="{{ route('penyewaanreklame.klien.show', $kontrak->klien) }}"
-               class="mt-2 block text-lg font-bold text-slate-900 hover:text-violet-700">
+               class="mt-2 block text-lg font-bold text-slate-900 hover:text-slate-900">
                 {{ $kontrak->klien->nama_klien }}
             </a>
-            <span class="mt-1 inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $isPerorangan ? 'bg-violet-100 text-violet-700' : 'bg-sky-100 text-sky-700' }}">
+            <span class="mt-1 inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $isPerorangan ? 'bg-slate-900 text-white' : 'bg-sky-100 text-sky-700' }}">
                 Kategori: {{ ucfirst($kontrak->klien->kategori_klien) }}
             </span>
             <p class="mt-2 text-xs text-slate-600">
@@ -105,7 +105,7 @@
             <div class="mt-1 text-xs text-slate-500">NPWP: {{ $kontrak->klien->npwp ?? 'Belum diisi' }}</div>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 ">
             <div class="text-xs font-bold uppercase tracking-wide text-slate-500">Nilai &amp; Pembayaran</div>
             <div class="mt-2 text-2xl font-extrabold text-slate-900">
                 Rp {{ number_format((float) $kontrak->nilai_kontrak, 0, ',', '.') }}
@@ -118,7 +118,7 @@
             </div>
             @if ($kontrak->file_berita_acara)
                 <a href="{{ asset('storage/' . $kontrak->file_berita_acara) }}" target="_blank" rel="noopener"
-                   class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-violet-600 hover:underline">
+                   class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:underline">
                     <i class="ph ph-file-text text-sm"></i>
                     Lihat File Berita Acara
                 </a>
@@ -131,7 +131,7 @@
         <div class="space-y-5">
             @if ($kontrak->status_kontrak === 'penawaran')
                 <form method="POST" action="{{ route('penyewaanreklame.kontrak.acc', $kontrak) }}"
-                      class="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm">
+                      class="rounded-2xl border border-slate-200/90 bg-white p-5 ">
                     @csrf
                     @method('PATCH')
                     <h2 class="text-sm font-bold uppercase tracking-wide text-sky-800">
@@ -162,10 +162,10 @@
 
             @if (in_array($kontrak->status_kontrak, ['acc', 'aktif'], true))
                 <form method="POST" action="{{ route('penyewaanreklame.kontrak.pasang', $kontrak) }}" enctype="multipart/form-data"
-                      class="rounded-2xl border border-violet-200 bg-white p-5 shadow-sm">
+                      class="rounded-2xl border border-slate-200 bg-white p-5 ">
                     @csrf
                     @method('PATCH')
-                    <h2 class="text-sm font-bold uppercase tracking-wide text-violet-800">
+                    <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">
                         {{ $kontrak->status_kontrak === 'acc' ? 'Aktivasi Kontrak, Pemasangan & Berita Acara' : 'Perbarui Data Pemasangan & Berita Acara' }}
                     </h2>
 
@@ -209,7 +209,7 @@
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">Upload Berita Acara (PDF/JPG/PNG)</label>
                             <input type="file" name="file_berita_acara" accept=".pdf,image/jpeg,image/png"
-                                   class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-violet-50 file:px-2.5 file:py-1.5 file:font-semibold file:text-violet-700">
+                                   class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-slate-100 file:px-2.5 file:py-1.5 file:font-semibold file:text-slate-900">
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-semibold text-slate-600">Materi Iklan Terpasang</label>
@@ -219,14 +219,14 @@
                     </div>
 
                     <button type="submit"
-                            class="mt-4 rounded-xl bg-violet-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-violet-700">
+                            class="mt-4 rounded-xl bg-obsidian px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-800">
                         Simpan Pemasangan &amp; Aktifkan Sewa
                     </button>
                 </form>
             @endif
 
             @if ($kontrak->status_kontrak === 'aktif')
-                <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div class="rounded-2xl border border-slate-200 bg-white p-5 ">
                     <div class="flex items-center justify-between">
                         <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">
                             Konfirmasi Perpanjangan &amp; Penurunan Materi
@@ -281,7 +281,7 @@
         {{-- Kolom Kanan: Pencatatan & Riwayat Pembayaran --}}
         <div class="space-y-5">
             <form method="POST" action="{{ route('penyewaanreklame.pembayaran.store', $kontrak) }}" enctype="multipart/form-data"
-                  class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  class="rounded-2xl border border-slate-200 bg-white p-5 ">
                 @csrf
                 <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">Catat Pembayaran Baru</h2>
                 <div class="mt-4 grid gap-3 sm:grid-cols-2">
@@ -316,7 +316,7 @@
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-slate-600">Upload Bukti Pembayaran (JPG/PNG/PDF)</label>
                         <input type="file" name="bukti_pembayaran" accept="image/jpeg,image/png,image/webp,.pdf"
-                               class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-violet-50 file:px-2.5 file:py-1.5 file:font-semibold file:text-violet-700">
+                               class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-slate-100 file:px-2.5 file:py-1.5 file:font-semibold file:text-slate-900">
                     </div>
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-slate-600">Catatan</label>
@@ -331,7 +331,7 @@
                 </button>
             </form>
 
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 ">
                 <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">Riwayat Pembayaran</h2>
                 @forelse ($kontrak->pembayarans as $bayar)
                     <div class="mt-3 flex items-start justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50 p-3.5 text-xs">
@@ -350,7 +350,7 @@
                             @endif
                             @if ($bayar->bukti_pembayaran)
                                 <a href="{{ asset('storage/' . $bayar->bukti_pembayaran) }}" target="_blank" rel="noopener"
-                                   class="mt-1 inline-flex items-center gap-1 font-semibold text-violet-600 hover:underline">
+                                   class="mt-1 inline-flex items-center gap-1 font-semibold text-emerald-600 hover:underline">
                                     <i class="ph ph-receipt"></i> Lihat Bukti Bayar
                                 </a>
                             @endif

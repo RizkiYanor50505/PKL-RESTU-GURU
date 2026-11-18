@@ -17,7 +17,7 @@
         <input id="kode_titik" name="kode_titik" type="text" required
                value="{{ old('kode_titik', $titikReklame->kode_titik) }}"
                placeholder="Contoh: RGP-BJB-001"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -25,7 +25,7 @@
             Kategori Space <span class="text-rose-500">*</span>
         </label>
         <select id="kategori_space" name="kategori_space" required
-                class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             <option value="internal" @selected(old('kategori_space', $titikReklame->kategori_space) === 'internal')>
                 Space Baliho Restu Guru Promosindo (Internal)
             </option>
@@ -42,7 +42,7 @@
         <input id="wilayah" name="wilayah" type="text" list="wilayah-options" required
                value="{{ old('wilayah', $titikReklame->wilayah) }}"
                placeholder="Pilih atau ketik kabupaten/kota..."
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
         <datalist id="wilayah-options">
             @foreach ($wilayahOptions as $opt)
                 <option value="{{ $opt }}">
@@ -55,7 +55,7 @@
             Status Titik <span class="text-rose-500">*</span>
         </label>
         <select id="status_titik" name="status_titik" required
-                class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             <option value="Tersedia" @selected(old('status_titik', $titikReklame->status_titik) === 'Tersedia')>Tersedia</option>
             <option value="Tersewa" @selected(old('status_titik', $titikReklame->status_titik) === 'Tersewa')>Tersewa</option>
             <option value="Maintenance" @selected(old('status_titik', $titikReklame->status_titik) === 'Maintenance')>Maintenance</option>
@@ -68,7 +68,7 @@
         </label>
         <textarea id="alamat_lokasi" name="alamat_lokasi" rows="2" required
                   placeholder="Contoh: Jl. A. Yani Km. 34 (Patokan: Dekat Bundaran Simpang Empat)"
-                  class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">{{ old('alamat_lokasi', $titikReklame->alamat_lokasi) }}</textarea>
+                  class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">{{ old('alamat_lokasi', $titikReklame->alamat_lokasi) }}</textarea>
     </div>
 
     <div>
@@ -78,7 +78,7 @@
         <input id="ukuran" name="ukuran" type="text" required
                value="{{ old('ukuran', $titikReklame->ukuran) }}"
                placeholder="Contoh: 4m x 8m (Vertikal)"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -88,7 +88,7 @@
         <input id="spesifikasi_lampu" name="spesifikasi_lampu" type="text"
                value="{{ old('spesifikasi_lampu', $titikReklame->spesifikasi_lampu) }}"
                placeholder="Contoh: Frontlite LED 4x100W / Backlite"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -98,7 +98,7 @@
         <input id="latitude" name="latitude" type="number" step="0.00000001"
                value="{{ old('latitude', $titikReklame->latitude) }}"
                placeholder="Contoh: -3.440512"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -108,7 +108,7 @@
         <input id="longitude" name="longitude" type="number" step="0.00000001"
                value="{{ old('longitude', $titikReklame->longitude) }}"
                placeholder="Contoh: 114.832145"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div class="sm:col-span-2">
@@ -118,7 +118,7 @@
         <input id="google_maps_url" name="google_maps_url" type="url"
                value="{{ old('google_maps_url', $titikReklame->google_maps_url) }}"
                placeholder="https://maps.google.com/?q=..."
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -128,7 +128,7 @@
         <input id="no_izin" name="no_izin" type="text"
                value="{{ old('no_izin', $titikReklame->no_izin) }}"
                placeholder="Opsional"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div class="grid grid-cols-2 gap-3">
@@ -138,7 +138,7 @@
             </label>
             <input id="tgl_izin_berakhir" name="tgl_izin_berakhir" type="date"
                    value="{{ old('tgl_izin_berakhir', optional($titikReklame->tgl_izin_berakhir)->format('Y-m-d')) }}"
-                   class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                   class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
         </div>
         <div>
             <label for="tgl_pajak_berakhir" class="block text-xs font-semibold uppercase tracking-wide text-slate-600">
@@ -146,7 +146,7 @@
             </label>
             <input id="tgl_pajak_berakhir" name="tgl_pajak_berakhir" type="date"
                    value="{{ old('tgl_pajak_berakhir', optional($titikReklame->tgl_pajak_berakhir)->format('Y-m-d')) }}"
-                   class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                   class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
         </div>
     </div>
 
@@ -155,7 +155,7 @@
             Foto Fisik Papan Reklame (JPG/PNG/WEBP, maks 4MB)
         </label>
         <input id="foto_papan" name="foto_papan" type="file" accept="image/jpeg,image/png,image/webp"
-               class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-violet-600 file:px-3 file:py-1 file:text-xs file:font-semibold file:text-white">
+               class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-obsidian file:px-3 file:py-1 file:text-xs file:font-semibold file:text-white">
         @if ($titikReklame->foto_papan)
             <div class="mt-3 flex items-center gap-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
                 <img src="{{ asset('storage/' . $titikReklame->foto_papan) }}" alt="Foto saat ini"
@@ -174,7 +174,7 @@
         </label>
         <textarea id="keterangan" name="keterangan" rows="2"
                   placeholder="Catatan arah pandang, akses lokasi, atau kondisi rangka..."
-                  class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">{{ old('keterangan', $titikReklame->keterangan) }}</textarea>
+                  class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">{{ old('keterangan', $titikReklame->keterangan) }}</textarea>
     </div>
 </div>
 

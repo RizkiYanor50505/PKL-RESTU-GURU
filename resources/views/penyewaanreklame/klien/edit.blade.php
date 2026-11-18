@@ -5,9 +5,9 @@
 @section('content')
     <div>
         <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-            <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+            <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
             <span>/</span>
-            <a href="{{ route('penyewaanreklame.klien.index') }}" class="hover:text-violet-600">Data Klien</a>
+            <a href="{{ route('penyewaanreklame.klien.index') }}" class="hover:text-emerald-600">Data Klien</a>
             <span>/</span>
             <span class="text-slate-700">Edit</span>
         </div>
@@ -26,7 +26,7 @@
                 Batal
             </a>
             <button type="submit"
-                    class="rounded-lg bg-violet-600 px-5 py-2 text-sm font-semibold text-white hover:bg-violet-700">
+                    class="rounded-lg bg-obsidian px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
                 Simpan Perubahan
             </button>
         </div>

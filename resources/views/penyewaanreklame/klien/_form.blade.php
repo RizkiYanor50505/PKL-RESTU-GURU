@@ -17,7 +17,7 @@
         <input id="nama_klien" name="nama_klien" type="text" required
                value="{{ old('nama_klien', $klien->nama_klien) }}"
                placeholder="Contoh: PT Banua Niaga Mandiri"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -25,7 +25,7 @@
             Kategori Klien <span class="text-rose-500">*</span>
         </label>
         <select id="kategori_klien" name="kategori_klien" required
-                class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+                class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
             <option value="perusahaan" @selected(old('kategori_klien', $klien->kategori_klien) === 'perusahaan')>
                 Perusahaan / Instansi (Bayar setelah Berita Acara &amp; Pajak)
             </option>
@@ -42,7 +42,7 @@
         <input id="nama_pic" name="nama_pic" type="text"
                value="{{ old('nama_pic', $klien->nama_pic) }}"
                placeholder="Contoh: Hendra Wijaya"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -52,7 +52,7 @@
         <input id="no_wa" name="no_wa" type="text" required
                value="{{ old('no_wa', $klien->no_wa) }}"
                placeholder="Contoh: 6281234567890"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -62,7 +62,7 @@
         <input id="email" name="email" type="email"
                value="{{ old('email', $klien->email) }}"
                placeholder="Opsional"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div>
@@ -72,7 +72,7 @@
         <input id="npwp" name="npwp" type="text"
                value="{{ old('npwp', $klien->npwp) }}"
                placeholder="Contoh: 01.234.567.8-731.000"
-               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">
+               class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">
     </div>
 
     <div class="sm:col-span-2">
@@ -81,6 +81,6 @@
         </label>
         <textarea id="alamat" name="alamat" rows="2"
                   placeholder="Alamat kantor atau domisili klien..."
-                  class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none">{{ old('alamat', $klien->alamat) }}</textarea>
+                  class="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none">{{ old('alamat', $klien->alamat) }}</textarea>
     </div>
 </div>

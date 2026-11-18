@@ -8,15 +8,15 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
                 <span>/</span>
-                <a href="{{ route('penyewaanreklame.titik-reklame.index') }}" class="hover:text-violet-600">Titik Reklame</a>
+                <a href="{{ route('penyewaanreklame.titik-reklame.index') }}" class="hover:text-emerald-600">Titik Reklame</a>
                 <span>/</span>
                 <span class="text-slate-700">{{ $titikReklame->kode_titik }}</span>
             </div>
             <div class="mt-1.5 flex flex-wrap items-center gap-2.5">
                 <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">{{ $titikReklame->kode_titik }}</h1>
-                <span class="rounded-full px-3 py-0.5 text-xs font-bold {{ match ($titikReklame->status_titik) { 'Tersedia' => 'bg-emerald-100 text-emerald-700', 'Tersewa' => 'bg-violet-100 text-violet-700', default => 'bg-amber-100 text-amber-700' } }}">
+                <span class="rounded-full px-3 py-0.5 text-xs font-bold {{ match ($titikReklame->status_titik) { 'Tersedia' => 'bg-emerald-100 text-emerald-700', 'Tersewa' => 'bg-slate-900 text-white', default => 'bg-amber-100 text-amber-700' } }}">
                     {{ $titikReklame->status_titik }}
                 </span>
                 <span class="rounded-lg px-2.5 py-0.5 text-xs font-semibold {{ $titikReklame->kategori_space === 'internal' ? 'bg-slate-900 text-white' : 'bg-sky-100 text-sky-700' }}">
@@ -27,17 +27,17 @@
 
         <div class="flex flex-wrap gap-2">
             <a href="{{ route('penyewaanreklame.kontrak.create', ['titik_reklame_id' => $titikReklame->id]) }}"
-               class="inline-flex items-center gap-1.5 rounded-xl border border-violet-200 bg-violet-50 px-3.5 py-2 text-xs font-semibold text-violet-700 transition hover:bg-violet-100">
+               class="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-100 px-3.5 py-2 text-xs font-semibold text-slate-900 transition hover:bg-slate-200">
                 <i class="ph ph-file-plus text-sm"></i>
                 Buat Penawaran
             </a>
             <a href="{{ route('penyewaanreklame.katalog.show', $titikReklame) }}" target="_blank" rel="noopener"
-               class="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">
-                <i class="ph ph-globe text-sm text-violet-600"></i>
+               class="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700  transition hover:bg-slate-50">
+                <i class="ph ph-globe text-sm text-emerald-600"></i>
                 Pratinjau Publik
             </a>
             <a href="{{ route('penyewaanreklame.titik-reklame.edit', $titikReklame) }}"
-               class="inline-flex items-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-violet-200 transition hover:bg-violet-700">
+               class="inline-flex items-center gap-1.5 rounded-xl bg-obsidian px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-800">
                 <i class="ph ph-pencil-simple text-sm"></i>
                 Edit Titik
             </a>
@@ -50,9 +50,9 @@
 
     {{-- Informasi Detail Spesifikasi & Izin --}}
     <div class="mt-6 grid gap-5 lg:grid-cols-2">
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 ">
             <h2 class="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-slate-700">
-                <i class="ph ph-sliders-horizontal text-base text-violet-600"></i>
+                <i class="ph ph-sliders-horizontal text-base text-emerald-600"></i>
                 Spesifikasi &amp; Perizinan
             </h2>
             <dl class="mt-4 space-y-3 text-sm">
@@ -87,17 +87,17 @@
             </dl>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 ">
             <h2 class="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-slate-700">
-                <i class="ph ph-clock-counter-clockwise text-base text-violet-600"></i>
+                <i class="ph ph-clock-counter-clockwise text-base text-emerald-600"></i>
                 Riwayat &amp; Status Kontrak Sewa
             </h2>
             @forelse ($titikReklame->kontrakSewas as $kontrak)
                 <a href="{{ route('penyewaanreklame.kontrak.show', $kontrak) }}"
-                   class="mt-3 block rounded-xl border border-slate-100 bg-slate-50 p-3.5 text-xs transition hover:border-violet-200 hover:bg-violet-50/40">
+                   class="mt-3 block rounded-xl border border-slate-100 bg-slate-50 p-3.5 text-xs transition hover:border-slate-200 hover:bg-slate-50">
                     <div class="flex items-center justify-between">
                         <span class="font-mono font-bold text-slate-900">{{ $kontrak->no_kontrak ?? $kontrak->no_penawaran }}</span>
-                        <span class="rounded-full bg-violet-100 px-2.5 py-0.5 font-semibold uppercase text-violet-700">
+                        <span class="rounded-full bg-slate-900 px-2.5 py-0.5 font-semibold uppercase text-white">
                             {{ $kontrak->status_kontrak }}
                         </span>
                     </div>

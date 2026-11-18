@@ -21,9 +21,9 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
                 <span>/</span>
-                <a href="{{ route('penyewaanreklame.titik-reklame.index') }}" class="hover:text-violet-600">Titik Reklame</a>
+                <a href="{{ route('penyewaanreklame.titik-reklame.index') }}" class="hover:text-emerald-600">Titik Reklame</a>
                 <span>/</span>
                 <span class="text-slate-700">Import CSV</span>
             </div>
@@ -35,7 +35,7 @@
 
         <a href="{{ route('penyewaanreklame.titik-reklame.template') }}"
            class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
-            <i class="ph ph-download-simple text-base text-violet-600"></i>
+            <i class="ph ph-download-simple text-base text-emerald-600"></i>
             Download Template CSV
         </a>
     </div>
@@ -54,7 +54,7 @@
                     Pilih File CSV <span class="text-rose-500">*</span>
                 </label>
                 <input id="file_csv" name="file_csv" type="file" accept=".csv,.txt" required
-                       class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-violet-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white">
+                       class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-obsidian file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white">
             </div>
 
             <div class="mt-6 flex items-center justify-end gap-3 border-t border-slate-100 pt-5">
@@ -63,7 +63,7 @@
                     Kembali
                 </a>
                 <button type="submit"
-                        class="rounded-lg bg-violet-600 px-5 py-2 text-sm font-semibold text-white hover:bg-violet-700">
+                        class="rounded-lg bg-obsidian px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
                     Mulai Import Data
                 </button>
             </div>

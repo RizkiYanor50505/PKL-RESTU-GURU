@@ -12,15 +12,15 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-violet-600">Dashboard</a>
+                <a href="{{ route('penyewaanreklame.dashboard') }}" class="hover:text-emerald-600">Dashboard</a>
                 <span>/</span>
-                <a href="{{ route('penyewaanreklame.klien.index') }}" class="hover:text-violet-600">Data Klien</a>
+                <a href="{{ route('penyewaanreklame.klien.index') }}" class="hover:text-emerald-600">Data Klien</a>
                 <span>/</span>
                 <span class="text-slate-700">Detail</span>
             </div>
             <div class="mt-1 flex flex-wrap items-center gap-2.5">
                 <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $klien->nama_klien }}</h1>
-                <span class="rounded-full px-3 py-0.5 text-xs font-semibold {{ $klien->kategori_klien === 'perusahaan' ? 'bg-sky-100 text-sky-700' : 'bg-violet-100 text-violet-700' }}">
+                <span class="rounded-full px-3 py-0.5 text-xs font-semibold {{ $klien->kategori_klien === 'perusahaan' ? 'bg-sky-100 text-sky-700' : 'bg-slate-900 text-white' }}">
                     {{ ucfirst($klien->kategori_klien) }}
                 </span>
             </div>
@@ -33,7 +33,7 @@
                 Chat WhatsApp
             </a>
             <a href="{{ route('penyewaanreklame.klien.edit', $klien) }}"
-               class="inline-flex items-center gap-1.5 rounded-lg bg-violet-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-violet-700">
+               class="inline-flex items-center gap-1.5 rounded-lg bg-obsidian px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-slate-800">
                 <i class="ph ph-pencil-simple text-sm"></i>
                 Edit Klien
             </a>
@@ -71,10 +71,10 @@
             <h2 class="text-sm font-bold uppercase tracking-wide text-slate-700">Riwayat Penawaran &amp; Kontrak</h2>
             @forelse ($klien->kontrakSewas as $kontrak)
                 <a href="{{ route('penyewaanreklame.kontrak.show', $kontrak) }}"
-                   class="mt-3 block rounded-xl border border-slate-100 bg-slate-50 p-3.5 text-xs hover:border-violet-200 hover:bg-violet-50/40">
+                   class="mt-3 block rounded-xl border border-slate-100 bg-slate-50 p-3.5 text-xs hover:border-slate-200 hover:bg-slate-50">
                     <div class="flex items-center justify-between">
                         <span class="font-mono font-bold text-slate-900">{{ $kontrak->no_kontrak ?? $kontrak->no_penawaran }}</span>
-                        <span class="rounded-full bg-violet-100 px-2.5 py-0.5 font-semibold uppercase text-violet-700">
+                        <span class="rounded-full bg-slate-900 px-2.5 py-0.5 font-semibold uppercase text-white">
                             {{ $kontrak->status_kontrak }}
                         </span>
                     </div>
