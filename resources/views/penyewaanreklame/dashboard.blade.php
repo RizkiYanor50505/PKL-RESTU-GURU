@@ -7,28 +7,33 @@
         <div>
             <h1 class="text-2xl font-bold tracking-tight text-slate-900">Dashboard Penyewaan Reklame</h1>
             <p class="mt-1 text-sm text-slate-500">
-                Monitoring ketersediaan titik reklame dan masa berlaku kontrak sewa Restu Guru Promosindo.
+                Monitoring ketersediaan titik reklame, masa berlaku kontrak sewa, dan perizinan Restu Guru Promosindo.
             </p>
         </div>
 
-        <div class="flex flex-wrap gap-2.5">
+        <div class="flex flex-wrap gap-2">
             <a href="{{ route('penyewaanreklame.titik-reklame.index') }}"
-               class="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700">
+               class="inline-flex items-center gap-1.5 rounded-lg bg-violet-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-violet-700">
                 <i class="ph ph-map-pin-line text-base"></i>
                 Titik Reklame
             </a>
             <a href="{{ route('penyewaanreklame.klien.index') }}"
-               class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+               class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
                 <i class="ph ph-users text-base text-violet-600"></i>
                 Data Klien
             </a>
             <a href="{{ route('penyewaanreklame.kontrak.index') }}"
-               class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+               class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
                 <i class="ph ph-file-text text-base text-violet-600"></i>
                 Kontrak Sewa
             </a>
+            <a href="{{ route('penyewaanreklame.laporan.index') }}"
+               class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                <i class="ph ph-chart-bar text-base text-violet-600"></i>
+                Laporan
+            </a>
             <a href="{{ route('penyewaanreklame.katalog') }}" target="_blank" rel="noopener"
-               class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+               class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
                 <i class="ph ph-globe text-base text-violet-600"></i>
                 Katalog Publik
             </a>
@@ -36,9 +41,9 @@
     </div>
 
     {{-- Kartu Statistik Ringkasan --}}
-    <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
         <div class="rounded-2xl border border-slate-200 bg-white p-5">
-            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Total Titik Reklame</p>
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Total Titik</p>
             <p class="mt-2 text-3xl font-bold text-slate-900">{{ $summary['total'] }}</p>
             <p class="mt-1 text-xs text-slate-500">
                 {{ $summary['internal'] }} Internal &middot; {{ $summary['mitra'] }} Mitra
@@ -46,30 +51,38 @@
         </div>
 
         <div class="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-5">
-            <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">Titik Tersedia</p>
+            <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">Tersedia</p>
             <p class="mt-2 text-3xl font-bold text-emerald-700">{{ $summary['tersedia'] }}</p>
-            <p class="mt-1 text-xs text-emerald-600">Siap ditawarkan ke klien</p>
+            <p class="mt-1 text-xs text-emerald-600">Siap ditawarkan</p>
         </div>
 
         <div class="rounded-2xl border border-violet-200 bg-violet-50/50 p-5">
-            <p class="text-xs font-semibold uppercase tracking-wide text-violet-700">Titik Tersewa</p>
+            <p class="text-xs font-semibold uppercase tracking-wide text-violet-700">Tersewa</p>
             <p class="mt-2 text-3xl font-bold text-violet-700">{{ $summary['tersewa'] }}</p>
-            <p class="mt-1 text-xs text-violet-600">Sedang berjalan aktif</p>
+            <p class="mt-1 text-xs text-violet-600">Kontrak berjalan</p>
         </div>
 
         <div class="rounded-2xl border border-amber-200 bg-amber-50/50 p-5">
             <p class="text-xs font-semibold uppercase tracking-wide text-amber-700">Maintenance</p>
             <p class="mt-2 text-3xl font-bold text-amber-700">{{ $summary['maintenance'] }}</p>
-            <p class="mt-1 text-xs text-amber-600">Dalam perawatan teknis</p>
+            <p class="mt-1 text-xs text-amber-600">Perawatan teknis</p>
+        </div>
+
+        <div class="col-span-2 rounded-2xl border border-slate-200 bg-slate-900 p-5 text-white lg:col-span-1">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-300">Kontrak Aktif</p>
+            <p class="mt-2 text-xl font-bold">Rp {{ number_format($summary['nilai_kontrak_aktif'], 0, ',', '.') }}</p>
+            <p class="mt-1 text-xs text-slate-300">
+                Terbayar: Rp {{ number_format($summary['total_terbayar'], 0, ',', '.') }}
+            </p>
         </div>
     </div>
 
     {{-- Pengingat Jatuh Tempo (1-2 Minggu Sebelum Habis) & Pencopotan Materi --}}
-    <div class="mt-6 grid gap-5 lg:grid-cols-2">
+    <div class="mt-6 grid gap-5 lg:grid-cols-3">
         <div class="rounded-2xl border border-slate-200 bg-white p-5">
             <div class="flex items-center justify-between">
                 <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">
-                    Pengingat Jatuh Tempo (&le; 14 Hari)
+                    Jatuh Tempo (&le; 14 Hari)
                 </h2>
                 <span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700">
                     {{ $kontrakAkanHabis->count() }} Kontrak
@@ -92,7 +105,7 @@
                     </div>
                     <a href="{{ route('penyewaanreklame.kontrak.show', $kontrak) }}"
                        class="shrink-0 rounded-lg border border-amber-200 bg-white px-2.5 py-1.5 font-semibold text-amber-800 hover:bg-amber-100">
-                        Kelola Kontrak
+                        Kelola
                     </a>
                 </div>
             @empty
@@ -103,7 +116,7 @@
         <div class="rounded-2xl border border-slate-200 bg-white p-5">
             <div class="flex items-center justify-between">
                 <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">
-                    Pengingat Penurunan Materi Iklan
+                    Penurunan Materi Iklan
                 </h2>
                 <span class="rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-semibold text-rose-700">
                     {{ $materiPerluDicopot->count() }} Titik
@@ -117,15 +130,46 @@
                             {{ $kontrak->titikReklame->kode_titik ?? '-' }} &mdash; {{ $kontrak->titikReklame->wilayah ?? '-' }}
                         </div>
                         <div class="mt-0.5 text-slate-700">Materi: {{ $kontrak->materi_iklan ?? '-' }}</div>
-                        <div class="mt-0.5 text-rose-700">Kontrak berakhir {{ optional($kontrak->tgl_berakhir)->format('d M Y') }} &mdash; perlu pencopotan</div>
+                        <div class="mt-0.5 text-rose-700">Berakhir {{ optional($kontrak->tgl_berakhir)->format('d M Y') }} &mdash; perlu pencopotan</div>
                     </div>
                     <a href="{{ route('penyewaanreklame.kontrak.show', $kontrak) }}"
                        class="shrink-0 rounded-lg border border-rose-200 bg-white px-2.5 py-1.5 font-semibold text-rose-700 hover:bg-rose-100">
-                        Konfirmasi Copot
+                        Copot
                     </a>
                 </div>
             @empty
                 <p class="mt-4 text-sm text-slate-500">Belum ada materi iklan yang menunggu pencopotan oleh tim lapangan.</p>
+            @endforelse
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <div class="flex items-center justify-between">
+                <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">
+                    Izin &amp; Pajak (&le; 30 Hari)
+                </h2>
+                <span class="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-semibold text-sky-700">
+                    {{ $izinPajakSegeraHabis->count() }} Titik
+                </span>
+            </div>
+
+            @forelse ($izinPajakSegeraHabis as $titik)
+                <div class="mt-3 flex items-start justify-between gap-3 rounded-xl border border-sky-100 bg-sky-50/60 p-3.5 text-xs">
+                    <div>
+                        <div class="font-bold text-slate-900">{{ $titik->kode_titik }} &mdash; {{ $titik->wilayah }}</div>
+                        <div class="mt-0.5 text-slate-700">
+                            Izin: {{ optional($titik->tgl_izin_berakhir)->format('d M Y') ?? '-' }}
+                        </div>
+                        <div class="text-slate-700">
+                            Pajak: {{ optional($titik->tgl_pajak_berakhir)->format('d M Y') ?? '-' }}
+                        </div>
+                    </div>
+                    <a href="{{ route('penyewaanreklame.titik-reklame.edit', $titik) }}"
+                       class="shrink-0 rounded-lg border border-sky-200 bg-white px-2.5 py-1.5 font-semibold text-sky-700 hover:bg-sky-100">
+                        Perbarui
+                    </a>
+                </div>
+            @empty
+                <p class="mt-4 text-sm text-slate-500">Seluruh perizinan dan pajak titik reklame masih berlaku aman &gt; 30 hari.</p>
             @endforelse
         </div>
     </div>

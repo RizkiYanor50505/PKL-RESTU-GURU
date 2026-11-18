@@ -7,9 +7,11 @@ use App\Models\TitikReklame;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TitikReklameController extends Controller
 {
@@ -121,6 +123,163 @@ class TitikReklameController extends Controller
         $titikReklame->load('kontrakAktif.klien');
 
         return view('penyewaanreklame.katalog_show', compact('titikReklame'));
+    }
+
+    public function importForm(): View
+    {
+        return view('penyewaanreklame.titik_reklame.import');
+    }
+
+    public function downloadTemplate(): StreamedResponse
+    {
+        return response()->streamDownload(function (): void {
+            $handle = fopen('php://output', 'w');
+            fwrite($handle, "\xEF\xBB\xBF");
+
+            fputcsv($handle, [
+                'kode_titik',
+                'kategori_space',
+                'wilayah',
+                'alamat_lokasi',
+                'ukuran',
+                'spesifikasi_lampu',
+                'status_titik',
+                'latitude',
+                'longitude',
+                'google_maps_url',
+                'no_izin',
+                'tgl_izin_berakhir',
+                'tgl_pajak_berakhir',
+                'keterangan',
+            ]);
+
+            fputcsv($handle, [
+                'RGP-BJB-001',
+                'internal',
+                'Banjarbaru',
+                'Jl. A. Yani Km. 34 (Patokan: Dekat Bundaran Simpang Empat)',
+                '4m x 8m',
+                'Frontlite LED 4x100W',
+                'Tersedia',
+                '-3.440512',
+                '114.832145',
+                'https://maps.google.com/?q=-3.440512,114.832145',
+                '',
+                '2027-06-30',
+                '2027-06-30',
+                'Contoh baris data impor CSV',
+            ]);
+
+            fclose($handle);
+        }, 'template-import-titik-reklame.csv', [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
+    }
+
+    public function importStore(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'file_csv' => ['required', 'file', 'mimes:csv,txt', 'max:5120'],
+        ]);
+
+        $path = $request->file('file_csv')->getRealPath();
+        $probe = fopen($path, 'r');
+        $firstLine = $probe ? (fgets($probe) ?: '') : '';
+        if ($probe) {
+            fclose($probe);
+        }
+        $delimiter = substr_count($firstLine, ';') > substr_count($firstLine, ',') ? ';' : ',';
+
+        $handle = fopen($path, 'r');
+        $rawHeaders = fgetcsv($handle, 0, $delimiter);
+        if (! $rawHeaders) {
+            fclose($handle);
+
+            return back()->with('error', 'File CSV kosong atau format header tidak terbaca.');
+        }
+
+        $headers = array_map(function (?string $col): string {
+            $clean = preg_replace('/^\xEF\xBB\xBF/', '', (string) $col);
+
+            return strtolower(trim($clean));
+        }, $rawHeaders);
+
+        if (! in_array('kode_titik', $headers, true) || ! in_array('wilayah', $headers, true) || ! in_array('alamat_lokasi', $headers, true)) {
+            fclose($handle);
+
+            return back()->with('error', 'Header CSV wajib memiliki kolom kode_titik, wilayah, dan alamat_lokasi.');
+        }
+
+        $imported = 0;
+
+        DB::transaction(function () use ($handle, $delimiter, $headers, &$imported): void {
+            while (($row = fgetcsv($handle, 0, $delimiter)) !== false) {
+                if (count(array_filter($row, fn ($v) => trim((string) $v) !== '')) === 0) {
+                    continue;
+                }
+
+                $assoc = [];
+                foreach ($headers as $idx => $key) {
+                    $assoc[$key] = isset($row[$idx]) ? trim((string) $row[$idx]) : null;
+                }
+
+                $kode = $assoc['kode_titik'] ?? '';
+                if ($kode === '' || ($assoc['wilayah'] ?? '') === '' || ($assoc['alamat_lokasi'] ?? '') === '') {
+                    continue;
+                }
+
+                $rawSpace = strtolower($assoc['kategori_space'] ?? 'internal');
+                $kategoriSpace = str_contains($rawSpace, 'mitra') ? 'mitra' : 'internal';
+
+                $rawStatus = strtolower($assoc['status_titik'] ?? 'tersedia');
+                $statusTitik = match (true) {
+                    str_contains($rawStatus, 'sewa') => 'Tersewa',
+                    str_contains($rawStatus, 'maint') => 'Maintenance',
+                    default => 'Tersedia',
+                };
+
+                TitikReklame::updateOrCreate(
+                    ['kode_titik' => $kode],
+                    [
+                        'kategori_space' => $kategoriSpace,
+                        'wilayah' => $assoc['wilayah'],
+                        'alamat_lokasi' => $assoc['alamat_lokasi'],
+                        'ukuran' => ($assoc['ukuran'] ?? '') !== '' ? $assoc['ukuran'] : '-',
+                        'spesifikasi_lampu' => ($assoc['spesifikasi_lampu'] ?? '') !== '' ? $assoc['spesifikasi_lampu'] : null,
+                        'status_titik' => $statusTitik,
+                        'latitude' => is_numeric($assoc['latitude'] ?? null) ? (float) $assoc['latitude'] : null,
+                        'longitude' => is_numeric($assoc['longitude'] ?? null) ? (float) $assoc['longitude'] : null,
+                        'google_maps_url' => ($assoc['google_maps_url'] ?? '') !== '' ? $assoc['google_maps_url'] : null,
+                        'no_izin' => ($assoc['no_izin'] ?? '') !== '' ? $assoc['no_izin'] : null,
+                        'tgl_izin_berakhir' => $this->parseNullableDate($assoc['tgl_izin_berakhir'] ?? null),
+                        'tgl_pajak_berakhir' => $this->parseNullableDate($assoc['tgl_pajak_berakhir'] ?? null),
+                        'keterangan' => ($assoc['keterangan'] ?? '') !== '' ? $assoc['keterangan'] : null,
+                    ]
+                );
+
+                $imported++;
+            }
+        });
+
+        fclose($handle);
+
+        return redirect()
+            ->route('penyewaanreklame.titik-reklame.index')
+            ->with('success', "Berhasil mengimpor {$imported} data titik reklame dari file CSV.");
+    }
+
+    private function parseNullableDate(?string $value): ?string
+    {
+        $trimmed = trim((string) $value);
+        if ($trimmed === '' || $trimmed === '-') {
+            return null;
+        }
+
+        try {
+            return \Carbon\Carbon::parse($trimmed)->format('Y-m-d');
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     /**

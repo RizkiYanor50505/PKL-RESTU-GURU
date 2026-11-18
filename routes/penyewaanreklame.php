@@ -3,6 +3,7 @@
 use App\Http\Controllers\PenyewaanReklame\DashboardController;
 use App\Http\Controllers\PenyewaanReklame\KlienController;
 use App\Http\Controllers\PenyewaanReklame\KontrakSewaController;
+use App\Http\Controllers\PenyewaanReklame\LaporanController;
 use App\Http\Controllers\PenyewaanReklame\PembayaranController;
 use App\Http\Controllers\PenyewaanReklame\TitikReklameController;
 use App\Http\Middleware\EnsureUserRole;
@@ -27,7 +28,12 @@ Route::get('/katalog/{titikReklame}', [TitikReklameController::class, 'katalogSh
 
 // Rute Admin Internal (Otomatis dilindungi middleware role:karyawan,manajer dari bootstrap/app.php)
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/titik-reklame-import', [TitikReklameController::class, 'importForm'])->name('titik-reklame.import');
+Route::post('/titik-reklame-import', [TitikReklameController::class, 'importStore'])->name('titik-reklame.import.store');
+Route::get('/titik-reklame-template', [TitikReklameController::class, 'downloadTemplate'])->name('titik-reklame.template');
 Route::resource('titik-reklame', TitikReklameController::class);
+
 Route::resource('klien', KlienController::class);
 
 Route::resource('kontrak', KontrakSewaController::class)->except(['edit', 'update']);
@@ -40,3 +46,7 @@ Route::patch('kontrak/{kontrak}/batal', [KontrakSewaController::class, 'batalkan
 
 Route::post('kontrak/{kontrak}/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');
 Route::delete('pembayaran/{pembayaran}', [PembayaranController::class, 'destroy'])->name('pembayaran.destroy');
+
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::get('/laporan/export-csv', [LaporanController::class, 'exportCsv'])->name('laporan.export-csv');
+Route::get('/laporan/cetak', [LaporanController::class, 'cetak'])->name('laporan.cetak');

@@ -33,6 +33,11 @@
                 <i class="ph ph-globe text-base text-violet-600"></i>
                 Lihat Katalog Publik
             </a>
+            <a href="{{ route('penyewaanreklame.titik-reklame.import') }}"
+               class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                <i class="ph ph-upload-simple text-base text-violet-600"></i>
+                Import CSV
+            </a>
             <a href="{{ route('penyewaanreklame.titik-reklame.create') }}"
                class="inline-flex items-center gap-1.5 rounded-lg bg-violet-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-violet-700">
                 <i class="ph ph-plus text-base"></i>
