@@ -3,25 +3,7 @@
 @section('title', 'Detail Transaksi ' . ($kontrak->no_kontrak ?? $kontrak->no_penawaran))
 
 @section('content')
-    @if (session('success'))
-        <div class="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="mb-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
-            {{ session('error') }}
-        </div>
-    @endif
-    @if ($errors->any())
-        <div class="mb-5 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
-            <ul class="list-disc pl-5 text-xs">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @include('penyewaanreklame.partials.flash')
 
     @php
         $isPerorangan = ($kontrak->klien->kategori_klien ?? '') === 'perorangan';
@@ -29,6 +11,13 @@
         $sisaHari = $kontrak->tgl_berakhir
             ? (int) now()->startOfDay()->diffInDays($kontrak->tgl_berakhir, false)
             : null;
+        $stepIndex = match ($kontrak->status_kontrak) {
+            'penawaran' => 1,
+            'acc' => 2,
+            'aktif' => 3,
+            'selesai' => 4,
+            default => 0,
+        };
     @endphp
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -40,11 +29,11 @@
                 <span>/</span>
                 <span class="text-slate-700">{{ $kontrak->no_kontrak ?? $kontrak->no_penawaran }}</span>
             </div>
-            <div class="mt-1 flex flex-wrap items-center gap-2.5">
-                <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+            <div class="mt-1.5 flex flex-wrap items-center gap-2.5">
+                <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">
                     {{ $kontrak->no_kontrak ?? $kontrak->no_penawaran }}
                 </h1>
-                <span class="rounded-full bg-violet-100 px-3 py-0.5 text-xs font-semibold uppercase text-violet-700">
+                <span class="rounded-full bg-violet-100 px-3 py-0.5 text-xs font-bold uppercase text-violet-700">
                     {{ $kontrak->status_kontrak }}
                 </span>
                 <span class="rounded-full px-3 py-0.5 text-xs font-semibold {{ $kontrak->status_materi === 'perlu_dicopot' ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-700' }}">
@@ -59,16 +48,32 @@
                 @csrf
                 @method('PATCH')
                 <button type="submit"
-                        class="rounded-lg border border-rose-200 bg-white px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50">
+                        class="rounded-xl border border-rose-200 bg-white px-3.5 py-2 text-xs font-semibold text-rose-600 shadow-sm transition hover:bg-rose-50">
                     Batalkan Transaksi
                 </button>
             </form>
         @endif
     </div>
 
+    {{-- Stepper Alur Kontrak --}}
+    @if ($stepIndex > 0)
+        <div class="mt-6 grid grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-4">
+            @foreach ([1 => '1. Penawaran', 2 => '2. ACC Klien', 3 => '3. Aktif & Terpasang', 4 => '4. Selesai / Copot'] as $idx => $label)
+                @php
+                    $done = $stepIndex > $idx;
+                    $current = $stepIndex === $idx;
+                @endphp
+                <div class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold {{ $current ? 'bg-violet-600 text-white shadow-sm' : ($done ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-50 text-slate-400') }}">
+                    <i class="ph {{ $done ? 'ph-check-circle' : ($current ? 'ph-dot-outline' : 'ph-circle') }} text-base"></i>
+                    <span>{{ $label }}</span>
+                </div>
+            @endforeach
+        </div>
+    @endif
+
     {{-- Ringkasan Klien, Titik & Nilai --}}
     <div class="mt-6 grid gap-4 lg:grid-cols-3">
-        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="text-xs font-bold uppercase tracking-wide text-slate-500">Titik Reklame</div>
             <a href="{{ route('penyewaanreklame.titik-reklame.show', $kontrak->titikReklame) }}"
                class="mt-2 block text-lg font-bold text-violet-700 hover:underline">
@@ -81,7 +86,7 @@
             </div>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="text-xs font-bold uppercase tracking-wide text-slate-500">Klien &amp; Skema Bayar</div>
             <a href="{{ route('penyewaanreklame.klien.show', $kontrak->klien) }}"
                class="mt-2 block text-lg font-bold text-slate-900 hover:text-violet-700">
@@ -100,9 +105,9 @@
             <div class="mt-1 text-xs text-slate-500">NPWP: {{ $kontrak->klien->npwp ?? 'Belum diisi' }}</div>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="text-xs font-bold uppercase tracking-wide text-slate-500">Nilai &amp; Pembayaran</div>
-            <div class="mt-2 text-2xl font-bold text-slate-900">
+            <div class="mt-2 text-2xl font-extrabold text-slate-900">
                 Rp {{ number_format((float) $kontrak->nilai_kontrak, 0, ',', '.') }}
             </div>
             <div class="mt-1 text-xs text-emerald-700">
@@ -124,10 +129,9 @@
     <div class="mt-6 grid gap-6 lg:grid-cols-2">
         {{-- Kolom Kiri: Aksi Tahapan Alur Kontrak --}}
         <div class="space-y-5">
-            {{-- Tahap 1 -> 2: ACC Penawaran --}}
             @if ($kontrak->status_kontrak === 'penawaran')
                 <form method="POST" action="{{ route('penyewaanreklame.kontrak.acc', $kontrak) }}"
-                      class="rounded-2xl border border-sky-200 bg-white p-5">
+                      class="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm">
                     @csrf
                     @method('PATCH')
                     <h2 class="text-sm font-bold uppercase tracking-wide text-sky-800">
@@ -140,26 +144,25 @@
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">Tanggal ACC</label>
                             <input type="date" name="tgl_acc" value="{{ date('Y-m-d') }}" required
-                                   class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                                   class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">No. Kontrak (Opsional)</label>
                             <input type="text" name="no_kontrak" value="{{ old('no_kontrak') }}"
                                    placeholder="CTR/RGP/..."
-                                   class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                                   class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                         </div>
                     </div>
                     <button type="submit"
-                            class="mt-4 rounded-lg bg-sky-600 px-4 py-2 text-xs font-semibold text-white hover:bg-sky-700">
+                            class="mt-4 rounded-xl bg-sky-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-sky-700">
                         Tandai Penawaran ACC
                     </button>
                 </form>
             @endif
 
-            {{-- Tahap 3: Pemasangan & Berita Acara --}}
             @if (in_array($kontrak->status_kontrak, ['acc', 'aktif'], true))
                 <form method="POST" action="{{ route('penyewaanreklame.kontrak.pasang', $kontrak) }}" enctype="multipart/form-data"
-                      class="rounded-2xl border border-violet-200 bg-white p-5">
+                      class="rounded-2xl border border-violet-200 bg-white p-5 shadow-sm">
                     @csrf
                     @method('PATCH')
                     <h2 class="text-sm font-bold uppercase tracking-wide text-violet-800">
@@ -167,7 +170,7 @@
                     </h2>
 
                     @if ($isPerorangan && $totalDibayar <= 0)
-                        <div class="mt-3 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs font-medium text-amber-800">
+                        <div class="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs font-medium text-amber-800">
                             Klien <strong>Perorangan</strong> wajib mencatat pembayaran di awal (pada panel kanan) sebelum mengaktifkan produksi &amp; pemasangan.
                         </div>
                     @endif
@@ -177,54 +180,53 @@
                             <label class="block text-xs font-semibold text-slate-600">No. Kontrak</label>
                             <input type="text" name="no_kontrak" value="{{ old('no_kontrak', $kontrak->no_kontrak) }}"
                                    placeholder="CTR/RGP/..."
-                                   class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                                   class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">Durasi (Bulan)</label>
                             <input type="number" name="durasi_bulan" min="1" max="36" required
                                    value="{{ old('durasi_bulan', $kontrak->durasi_bulan ?? 3) }}"
-                                   class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                                   class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">Tanggal Mulai Sewa</label>
                             <input type="date" name="tgl_mulai" required
                                    value="{{ old('tgl_mulai', optional($kontrak->tgl_mulai)->format('Y-m-d') ?? date('Y-m-d')) }}"
-                                   class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                                   class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">Tanggal Berakhir Sewa</label>
                             <input type="date" name="tgl_berakhir" required
                                    value="{{ old('tgl_berakhir', optional($kontrak->tgl_berakhir)->format('Y-m-d') ?? now()->addMonths($kontrak->durasi_bulan ?? 3)->format('Y-m-d')) }}"
-                                   class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                                   class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">Tanggal Pemasangan</label>
                             <input type="date" name="tgl_pemasangan" required
                                    value="{{ old('tgl_pemasangan', optional($kontrak->tgl_pemasangan)->format('Y-m-d') ?? date('Y-m-d')) }}"
-                                   class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                                   class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-600">Upload Berita Acara (PDF/JPG/PNG)</label>
                             <input type="file" name="file_berita_acara" accept=".pdf,image/jpeg,image/png"
-                                   class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded file:border-0 file:bg-violet-50 file:px-2.5 file:py-1.5 file:font-semibold file:text-violet-700">
+                                   class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-violet-50 file:px-2.5 file:py-1.5 file:font-semibold file:text-violet-700">
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-semibold text-slate-600">Materi Iklan Terpasang</label>
                             <textarea name="materi_iklan" rows="2"
-                                      class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">{{ old('materi_iklan', $kontrak->materi_iklan) }}</textarea>
+                                      class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">{{ old('materi_iklan', $kontrak->materi_iklan) }}</textarea>
                         </div>
                     </div>
 
                     <button type="submit"
-                            class="mt-4 rounded-lg bg-violet-600 px-4 py-2 text-xs font-semibold text-white hover:bg-violet-700">
+                            class="mt-4 rounded-xl bg-violet-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-violet-700">
                         Simpan Pemasangan &amp; Aktifkan Sewa
                     </button>
                 </form>
             @endif
 
-            {{-- Tahap 4: Monitoring Perpanjangan & Penurunan Materi --}}
             @if ($kontrak->status_kontrak === 'aktif')
-                <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                     <div class="flex items-center justify-between">
                         <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">
                             Konfirmasi Perpanjangan &amp; Penurunan Materi
@@ -239,13 +241,13 @@
                     <form method="POST" action="{{ route('penyewaanreklame.kontrak.perpanjangan', $kontrak) }}" class="mt-4 flex flex-wrap gap-2">
                         @csrf
                         @method('PATCH')
-                        <select name="status_perpanjangan" class="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-xs font-medium">
+                        <select name="status_perpanjangan" class="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-xs font-medium">
                             <option value="belum_konfirmasi" @selected($kontrak->status_perpanjangan === 'belum_konfirmasi')>Belum Konfirmasi (Pengingat 1-2 Minggu)</option>
                             <option value="diperpanjang" @selected($kontrak->status_perpanjangan === 'diperpanjang')>Klien Akan Perpanjang</option>
                             <option value="tidak_diperpanjang" @selected($kontrak->status_perpanjangan === 'tidak_diperpanjang')>Tidak Diperpanjang</option>
                         </select>
                         <button type="submit"
-                                class="rounded-lg border border-slate-200 bg-slate-900 px-3.5 py-2 text-xs font-semibold text-white hover:bg-slate-700">
+                                class="rounded-xl bg-slate-900 px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-slate-700">
                             Simpan Status
                         </button>
                     </form>
@@ -256,7 +258,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit"
-                                        class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-800 hover:bg-amber-100">
+                                        class="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-800 transition hover:bg-amber-100">
                                     Tandai Perlu Pencopotan Materi
                                 </button>
                             </form>
@@ -267,7 +269,7 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit"
-                                    class="rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-700">
+                                    class="rounded-xl bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700">
                                 Konfirmasi Materi Sudah Dicopot &amp; Selesai
                             </button>
                         </form>
@@ -279,24 +281,24 @@
         {{-- Kolom Kanan: Pencatatan & Riwayat Pembayaran --}}
         <div class="space-y-5">
             <form method="POST" action="{{ route('penyewaanreklame.pembayaran.store', $kontrak) }}" enctype="multipart/form-data"
-                  class="rounded-2xl border border-slate-200 bg-white p-5">
+                  class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 @csrf
                 <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">Catat Pembayaran Baru</h2>
                 <div class="mt-4 grid gap-3 sm:grid-cols-2">
                     <div>
                         <label class="block text-xs font-semibold text-slate-600">Tanggal Bayar</label>
                         <input type="date" name="tgl_bayar" value="{{ date('Y-m-d') }}" required
-                               class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                               class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-600">Jumlah Bayar (Rp)</label>
                         <input type="number" name="jumlah_bayar" min="1" step="1000" required
                                value="{{ $sisaBayar > 0 ? (int) $sisaBayar : '' }}"
-                               class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                               class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-600">Jenis Pembayaran</label>
-                        <select name="jenis_pembayaran" required class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                        <select name="jenis_pembayaran" required class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                             @if ($isPerorangan)
                                 <option value="bayar_awal">Bayar Awal (Perorangan)</option>
                             @else
@@ -309,27 +311,27 @@
                     <div>
                         <label class="block text-xs font-semibold text-slate-600">Metode Pembayaran</label>
                         <input type="text" name="metode_pembayaran" placeholder="Transfer Bank / Tunai"
-                               class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                               class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                     </div>
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-slate-600">Upload Bukti Pembayaran (JPG/PNG/PDF)</label>
                         <input type="file" name="bukti_pembayaran" accept="image/jpeg,image/png,image/webp,.pdf"
-                               class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded file:border-0 file:bg-violet-50 file:px-2.5 file:py-1.5 file:font-semibold file:text-violet-700">
+                               class="mt-1 block w-full text-xs text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-violet-50 file:px-2.5 file:py-1.5 file:font-semibold file:text-violet-700">
                     </div>
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-slate-600">Catatan</label>
                         <input type="text" name="catatan" placeholder="Opsional"
-                               class="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                               class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm">
                     </div>
                 </div>
 
                 <button type="submit"
-                        class="mt-4 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-700">
+                        class="mt-4 rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-700">
                     Simpan Pembayaran
                 </button>
             </form>
 
-            <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">Riwayat Pembayaran</h2>
                 @forelse ($kontrak->pembayarans as $bayar)
                     <div class="mt-3 flex items-start justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50 p-3.5 text-xs">
