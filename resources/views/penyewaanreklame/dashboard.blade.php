@@ -15,7 +15,17 @@
             <a href="{{ route('penyewaanreklame.titik-reklame.index') }}"
                class="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700">
                 <i class="ph ph-map-pin-line text-base"></i>
-                Kelola Titik Reklame
+                Titik Reklame
+            </a>
+            <a href="{{ route('penyewaanreklame.klien.index') }}"
+               class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                <i class="ph ph-users text-base text-violet-600"></i>
+                Data Klien
+            </a>
+            <a href="{{ route('penyewaanreklame.kontrak.index') }}"
+               class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                <i class="ph ph-file-text text-base text-violet-600"></i>
+                Kontrak Sewa
             </a>
             <a href="{{ route('penyewaanreklame.katalog') }}" target="_blank" rel="noopener"
                class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
@@ -80,12 +90,10 @@
                             ({{ ucfirst(str_replace('_', ' ', $kontrak->status_perpanjangan)) }})
                         </div>
                     </div>
-                    @if ($kontrak->titikReklame)
-                        <a href="{{ route('penyewaanreklame.titik-reklame.show', $kontrak->titikReklame) }}"
-                           class="shrink-0 rounded-lg border border-amber-200 bg-white px-2.5 py-1.5 font-semibold text-amber-800 hover:bg-amber-100">
-                            Lihat Titik
-                        </a>
-                    @endif
+                    <a href="{{ route('penyewaanreklame.kontrak.show', $kontrak) }}"
+                       class="shrink-0 rounded-lg border border-amber-200 bg-white px-2.5 py-1.5 font-semibold text-amber-800 hover:bg-amber-100">
+                        Kelola Kontrak
+                    </a>
                 </div>
             @empty
                 <p class="mt-4 text-sm text-slate-500">Tidak ada kontrak sewa yang akan berakhir dalam 14 hari ke depan.</p>
@@ -111,6 +119,10 @@
                         <div class="mt-0.5 text-slate-700">Materi: {{ $kontrak->materi_iklan ?? '-' }}</div>
                         <div class="mt-0.5 text-rose-700">Kontrak berakhir {{ optional($kontrak->tgl_berakhir)->format('d M Y') }} &mdash; perlu pencopotan</div>
                     </div>
+                    <a href="{{ route('penyewaanreklame.kontrak.show', $kontrak) }}"
+                       class="shrink-0 rounded-lg border border-rose-200 bg-white px-2.5 py-1.5 font-semibold text-rose-700 hover:bg-rose-100">
+                        Konfirmasi Copot
+                    </a>
                 </div>
             @empty
                 <p class="mt-4 text-sm text-slate-500">Belum ada materi iklan yang menunggu pencopotan oleh tim lapangan.</p>

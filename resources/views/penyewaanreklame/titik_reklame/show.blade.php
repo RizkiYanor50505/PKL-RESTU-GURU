@@ -30,6 +30,11 @@
         </div>
 
         <div class="flex flex-wrap gap-2">
+            <a href="{{ route('penyewaanreklame.kontrak.create', ['titik_reklame_id' => $titikReklame->id]) }}"
+               class="inline-flex items-center gap-1.5 rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs font-semibold text-violet-700 hover:bg-violet-100">
+                <i class="ph ph-file-plus text-sm"></i>
+                Buat Penawaran
+            </a>
             <a href="{{ route('penyewaanreklame.katalog.show', $titikReklame) }}" target="_blank" rel="noopener"
                class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
                 <i class="ph ph-globe text-sm text-violet-600"></i>
