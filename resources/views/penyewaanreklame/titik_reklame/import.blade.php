@@ -70,11 +70,16 @@
         </form>
 
         <div class="rounded-2xl border border-slate-200 bg-white p-6 text-xs text-slate-600">
-            <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">Panduan Kolom Header CSV</h2>
-            <ul class="mt-3 space-y-1.5 list-disc pl-4">
+            <h2 class="text-sm font-bold uppercase tracking-wide text-slate-800">Panduan Format CSV yang Didukung</h2>
+            <p class="mt-2 font-semibold text-slate-700">1. Format Spreadsheet Restu Guru Promosindo (Export Langsung)</p>
+            <ul class="mt-1 space-y-1 list-disc pl-4">
+                <li>Mendukung langsung file sheet <code>SPACE BALIHO RESTU GURU PROMOSINDO</code> &amp; <code>MITRA</code> dengan kolom <code>No.</code>, <code>TITIK BALIHO</code>, <code>UKURAN</code>, <code>SPESIFIKASI</code>, <code>KETERANGAN</code>, <code>TANGGAL SEWA</code>, <code>MATERI SEWA</code>.</li>
+                <li><code>kode_titik</code> (<code>RGP-INT-01</code> / <code>RGP-MTR-01</code>), <code>wilayah</code>, serta klien &amp; kontrak yang sedang <code>TERSEWA</code> otomatis terbuat.</li>
+            </ul>
+            <p class="mt-3 font-semibold text-slate-700">2. Format Template Standar Sistem</p>
+            <ul class="mt-1 space-y-1 list-disc pl-4">
                 <li><strong>Wajib diisi:</strong> <code>kode_titik</code>, <code>wilayah</code>, <code>alamat_lokasi</code>.</li>
-                <li><strong>Opsional (otomatis disesuaikan):</strong> <code>kategori_space</code> (<code>internal</code> atau <code>mitra</code>), <code>ukuran</code>, <code>spesifikasi_lampu</code>, <code>status_titik</code> (<code>Tersedia</code>, <code>Tersewa</code>, <code>Maintenance</code>).</li>
-                <li><strong>Lokasi &amp; Izin (opsional/nullable):</strong> <code>latitude</code>, <code>longitude</code>, <code>google_maps_url</code>, <code>no_izin</code>, <code>tgl_izin_berakhir</code> (YYYY-MM-DD), <code>tgl_pajak_berakhir</code> (YYYY-MM-DD), <code>keterangan</code>.</li>
+                <li><strong>Opsional:</strong> <code>kategori_space</code>, <code>ukuran</code>, <code>spesifikasi_lampu</code>, <code>status_titik</code>, <code>latitude</code>, <code>longitude</code>, <code>google_maps_url</code>, <code>no_izin</code>, <code>tgl_izin_berakhir</code>, <code>tgl_pajak_berakhir</code>, <code>keterangan</code>.</li>
             </ul>
         </div>
     </div>
