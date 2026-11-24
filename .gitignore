@@ -34,4 +34,6 @@ Thumbs.db
 /.agents/
 /.taste-skill/
 skills-lock.json
+composer.phar
+
 

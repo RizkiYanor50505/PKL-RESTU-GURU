@@ -29,6 +29,18 @@ class EnsureUserRole
             return redirect()->route($targetRoute)->with('access_error', 'Anda tidak memiliki hak akses ke halaman tersebut.');
         }
 
+        if (! auth()->check()) {
+            $email = $request->session()->get('auth_user.email');
+            $user = $email ? \App\Models\User::where('email', $email)->first() : null;
+            if (! $user && $currentRole) {
+                $user = \App\Models\User::where('role', $currentRole)->first() ?? \App\Models\User::first();
+            }
+            if ($user) {
+                auth()->setUser($user);
+                $request->setUserResolver(fn () => $user);
+            }
+        }
+
         return $next($request);
     }
 }

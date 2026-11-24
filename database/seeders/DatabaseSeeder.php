@@ -66,6 +66,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $this->call(IzinSeeder::class);
+        $this->call([
+            IzinSeeder::class,
+            PemeliharaanAlatSeeder::class,
+        ]);
     }
 }
