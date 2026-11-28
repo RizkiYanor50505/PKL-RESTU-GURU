@@ -20,16 +20,7 @@
         <div>
             <h1>Daftar Laporan Kendala</h1>
         </div>
-        <div class="d-flex gap-2 align-items-center flex-wrap">
-            @if(auth()->user()?->isAdmin() || session('auth_role') === 'manajer')
-                <form action="{{ route('pemeliharaanalat.reports.prune-photos') }}" method="POST"
-                      onsubmit="return confirm('Jalankan pembersihan foto dokumentasi kendala yang berusia lebih dari 30 hari?\n\nTindakan ini mereset file foto lama dari server untuk menghemat penyimpanan. Data laporan dan riwayat biaya tetap tersimpan aman.')">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-secondary" title="Bersihkan file foto lama (>30 hari) untuk menghemat penyimpanan server">
-                        <i class="bi bi-clock-history me-1"></i> Reset Foto > 1 Bln
-                    </button>
-                </form>
-            @endif
+        <div>
             <a href="{{ route('pemeliharaanalat.reports.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Lapor Kendala</a>
         </div>
     </div>

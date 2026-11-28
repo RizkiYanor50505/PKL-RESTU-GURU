@@ -89,12 +89,12 @@ class ReportService
     }
 
     /**
-     * Bersihkan file foto dokumentasi laporan yang telah berusia lebih dari $days hari (misal 30 hari).
+     * Bersihkan file foto dokumentasi laporan yang telah berusia lebih dari $days hari (default 90 hari / 3 bulan).
      * Data laporan, histori kerusakan, dan rekap biaya tetap utuh, hanya file foto yang direset untuk hemat penyimpanan.
      *
      * @return array{deleted_count: int, freed_bytes: int}
      */
-    public function pruneOldPhotos(int $days = 30): array
+    public function pruneOldPhotos(int $days = 90): array
     {
         $cutoff = now()->subDays($days);
         $reports = Report::query()

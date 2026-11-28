@@ -104,7 +104,7 @@
                             <i class="bi bi-clock-history text-secondary fs-5 mt-n1"></i>
                             <div>
                                 <strong>Dokumentasi Foto Telah Direset</strong><br>
-                                Foto kendala awal telah dibersihkan otomatis pada {{ $report->photo_cleaned_at->translatedFormat('d F Y, H:i') }} sesuai kebijakan retensi penyimpanan 1 bulan. Riwayat penanganan & biaya tetap tersimpan permanen.
+                                Foto kendala awal telah dibersihkan otomatis pada {{ $report->photo_cleaned_at->translatedFormat('d F Y, H:i') }} sesuai kebijakan retensi penyimpanan 3 bulan. Riwayat penanganan & biaya tetap tersimpan permanen.
                             </div>
                         </div>
                     @endif

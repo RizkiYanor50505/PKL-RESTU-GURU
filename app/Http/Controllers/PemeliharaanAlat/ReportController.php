@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Services\ReportService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class ReportController extends Controller
@@ -21,6 +22,11 @@ class ReportController extends Controller
 
     public function index(Request $request): View
     {
+        // Pembersihan otomatis foto dokumentasi > 90 hari (3 bulan) secara berkala di background tanpa tombol manual
+        Cache::remember('reports_photo_pruned_daily', 86400, function () {
+            return $this->reports->pruneOldPhotos(90);
+        });
+
         $user = $request->user();
         $status = $request->query('status');
         $status = in_array($status, ReportStatus::values(), true) ? $status : null;
@@ -111,11 +117,11 @@ class ReportController extends Controller
     }
 
     /**
-     * Bersihkan foto dokumentasi lama (> 30 hari) secara manual oleh Manajer / Admin.
+     * Bersihkan foto dokumentasi lama (> 90 hari / 3 bulan).
      */
     public function prunePhotos(Request $request): RedirectResponse
     {
-        $days = $request->integer('days', 30);
+        $days = $request->integer('days', 90);
         $result = $this->reports->pruneOldPhotos($days);
         $freedMb = round($result['freed_bytes'] / (1024 * 1024), 2);
 
