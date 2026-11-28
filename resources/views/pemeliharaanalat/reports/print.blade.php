@@ -96,7 +96,14 @@
     </table>
 
     <h3>Kendala yang Dilaporkan</h3>
-    <div class="box sm">{{ $report->issue_description }}</div>
+    <div class="box sm">
+        <div>{{ $report->issue_description }}</div>
+        @if($report->hasPhoto())
+            <div style="margin-top: 8px;">
+                <img src="{{ $report->photoUrl() }}" alt="Foto Kendala" style="max-height: 120px; border: 1px solid #ccc; border-radius: 4px; display: inline-block;">
+            </div>
+        @endif
+    </div>
 
     <h3>Uraian Penanganan</h3>
     <div class="box">{{ $report->repair_notes }}</div>

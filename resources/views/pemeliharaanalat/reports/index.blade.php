@@ -19,9 +19,19 @@
     <div class="page-head">
         <div>
             <h1>Daftar Laporan Kendala</h1>
-            <p>Pantau status setiap laporan kerusakan mesin.</p>
         </div>
-        <a href="{{ route('pemeliharaanalat.reports.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Lapor Kendala</a>
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            @if(auth()->user()?->isAdmin() || session('auth_role') === 'manajer')
+                <form action="{{ route('pemeliharaanalat.reports.prune-photos') }}" method="POST"
+                      onsubmit="return confirm('Jalankan pembersihan foto dokumentasi kendala yang berusia lebih dari 30 hari?\n\nTindakan ini mereset file foto lama dari server untuk menghemat penyimpanan. Data laporan dan riwayat biaya tetap tersimpan aman.')">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-secondary" title="Bersihkan file foto lama (>30 hari) untuk menghemat penyimpanan server">
+                        <i class="bi bi-clock-history me-1"></i> Reset Foto > 1 Bln
+                    </button>
+                </form>
+            @endif
+            <a href="{{ route('pemeliharaanalat.reports.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Lapor Kendala</a>
+        </div>
     </div>
 
     <section class="card-panel">
@@ -83,7 +93,7 @@
                     <tbody>
                         @foreach($reports as $report)
                             <tr>
-                                <td class="mono fw-semibold">{{ $report->report_number }}</td>
+                                <td class="mono fw-semibold text-nowrap">{{ $report->report_number }}</td>
                                 <td>
                                     <div class="cell-title">{{ $report->asset->name }}</div>
                                     <div class="cell-sub d-flex align-items-center gap-1 mt-1">

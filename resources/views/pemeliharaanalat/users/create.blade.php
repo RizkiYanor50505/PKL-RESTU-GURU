@@ -12,7 +12,6 @@
     <div class="page-head">
         <div>
             <h1>Tambah Pengguna</h1>
-            <p>Buat akun baru untuk staf cabang.</p>
         </div>
     </div>
 

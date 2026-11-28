@@ -6,7 +6,6 @@
     <div class="page-head">
         <div>
             <h1>Kelola Pengguna</h1>
-            <p>Akun staf: Admin, Teknisi, dan Pegawai / Operator.</p>
         </div>
         <a href="{{ route('pemeliharaanalat.users.create') }}" class="btn btn-primary" id="btn-add-user"><i class="bi bi-person-plus me-1"></i> Tambah Pengguna</a>
     </div>

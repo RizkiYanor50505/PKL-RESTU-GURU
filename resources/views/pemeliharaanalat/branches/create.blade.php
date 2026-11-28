@@ -12,7 +12,6 @@
     <div class="page-head">
         <div>
             <h1>Tambah Cabang Baru</h1>
-            <p>Daftarkan cabang atau outlet percetakan Restu Guru Promosindo.</p>
         </div>
     </div>
 

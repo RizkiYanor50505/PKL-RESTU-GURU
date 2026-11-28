@@ -6,13 +6,6 @@
     <div class="page-head">
         <div>
             <h1>Halo, {{ explode(' ', (string) (auth()->user()?->name ?? session('auth_user.name', 'Pengguna')))[0] }} 👋</h1>
-            <p>
-                @if($selectedBranch)
-                    Menampilkan data kondisi mesin &amp; laporan untuk <strong>{{ $selectedBranch->name }} ({{ $selectedBranch->city }})</strong>.
-                @else
-                    Konsolidasi seluruh cabang Restu Guru Promosindo ({{ $branches->count() }} cabang aktif).
-                @endif
-            </p>
         </div>
         <div class="d-flex align-items-center gap-2 flex-wrap">
             {{-- Filter Pilih Cabang --}}
@@ -84,7 +77,6 @@
             <div class="panel-head">
                 <div>
                     <h2><i class="bi bi-diagram-3-fill text-primary me-2"></i>Rekap Biaya Perbaikan Per Cabang (Bulan Ini)</h2>
-                    <div class="cell-sub">Rincian per cabang &amp; hasil akumulasi total yang dijadikan 1 ({{ now()->translatedFormat('F Y') }})</div>
                 </div>
                 <a href="{{ route('pemeliharaanalat.branches.index') }}" class="btn btn-sm btn-outline-primary">Kelola Data Cabang</a>
             </div>

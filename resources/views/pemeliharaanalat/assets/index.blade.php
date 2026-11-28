@@ -6,7 +6,6 @@
     <div class="page-head">
         <div>
             <h1>Data Aset</h1>
-            <p>Mesin percetakan dan perangkat pendukung di seluruh cabang Restu Guru Promosindo.</p>
         </div>
         @if(auth()->user()?->isAdmin())
             <a href="{{ route('pemeliharaanalat.assets.create') }}" class="btn btn-primary" id="btn-add-asset"><i class="bi bi-plus-lg me-1"></i> Tambah Aset</a>

@@ -6,7 +6,6 @@
     <div class="page-head">
         <div>
             <h1>Daftar Cabang &amp; Rekap Biaya</h1>
-            <p>Pengelolaan unit cabang, pembagian aset mesin percetakan, dan konsolidasi biaya servis.</p>
         </div>
         @if(auth()->user()?->isAdmin() || session('auth_role') === 'manajer')
             <a href="{{ route('pemeliharaanalat.branches.create') }}" class="btn btn-primary" id="btn-add-branch">

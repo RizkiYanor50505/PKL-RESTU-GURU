@@ -6,7 +6,6 @@
     <div class="page-head">
         <div>
             <h1>Riwayat Pemeliharaan &amp; Biaya</h1>
-            <p>Histori perbaikan mesin yang telah selesai beserta rekap biaya servis.</p>
         </div>
         <a href="{{ route('pemeliharaanalat.maintenance.export', request()->query()) }}" class="btn btn-gold" id="btn-export">
             <i class="bi bi-file-earmark-spreadsheet me-1"></i> Ekspor CSV

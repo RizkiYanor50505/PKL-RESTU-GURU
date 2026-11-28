@@ -3,9 +3,12 @@
 namespace App\Services;
 
 use App\Enums\ReportStatus;
+use App\Models\Asset;
 use App\Models\Report;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Logika bisnis laporan kendala: pembuatan, penanganan, penghapusan,
@@ -14,12 +17,17 @@ use Illuminate\Support\Facades\DB;
 class ReportService
 {
     /**
-     * @param  array{asset_id: int|string, reporter_name: string, issue_description: string}  $data
+     * @param  array<string, mixed>  $data
      */
     public function create(array $data, ?User $reporter = null): Report
     {
         return DB::transaction(function () use ($data, $reporter) {
-            $asset = \App\Models\Asset::findOrFail($data['asset_id']);
+            $asset = Asset::findOrFail($data['asset_id']);
+
+            $photoPath = null;
+            if (isset($data['photo']) && $data['photo'] instanceof UploadedFile) {
+                $photoPath = $data['photo']->store('reports/photos', 'public');
+            }
 
             $report = Report::create([
                 'report_number' => Report::nextNumber(),
@@ -28,6 +36,7 @@ class ReportService
                 'user_id' => $reporter?->id,
                 'reporter_name' => $data['reporter_name'],
                 'issue_description' => $data['issue_description'],
+                'photo_path' => $photoPath,
                 'status' => ReportStatus::Menunggu,
                 'reported_at' => now(),
             ]);
@@ -70,9 +79,51 @@ class ReportService
         DB::transaction(function () use ($report) {
             $asset = $report->asset;
 
+            if ($report->photo_path && Storage::disk('public')->exists($report->photo_path)) {
+                Storage::disk('public')->delete($report->photo_path);
+            }
+
             $report->delete();
             $asset->syncStatus();
         });
+    }
+
+    /**
+     * Bersihkan file foto dokumentasi laporan yang telah berusia lebih dari $days hari (misal 30 hari).
+     * Data laporan, histori kerusakan, dan rekap biaya tetap utuh, hanya file foto yang direset untuk hemat penyimpanan.
+     *
+     * @return array{deleted_count: int, freed_bytes: int}
+     */
+    public function pruneOldPhotos(int $days = 30): array
+    {
+        $cutoff = now()->subDays($days);
+        $reports = Report::query()
+            ->whereNotNull('photo_path')
+            ->where('reported_at', '<=', $cutoff)
+            ->get();
+
+        $deletedCount = 0;
+        $freedBytes = 0;
+        $disk = Storage::disk('public');
+
+        foreach ($reports as $report) {
+            if ($report->photo_path && $disk->exists($report->photo_path)) {
+                $freedBytes += $disk->size($report->photo_path);
+                $disk->delete($report->photo_path);
+            }
+
+            $report->update([
+                'photo_path' => null,
+                'photo_cleaned_at' => now(),
+            ]);
+
+            $deletedCount++;
+        }
+
+        return [
+            'deleted_count' => $deletedCount,
+            'freed_bytes' => $freedBytes,
+        ];
     }
 
     /**

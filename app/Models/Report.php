@@ -6,6 +6,7 @@ use App\Enums\ReportStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class Report extends Model
 {
@@ -19,6 +20,8 @@ class Report extends Model
         'user_id',
         'reporter_name',
         'issue_description',
+        'photo_path',
+        'photo_cleaned_at',
         'status',
         'technician_id',
         'repair_notes',
@@ -40,7 +43,22 @@ class Report extends Model
             'reported_at' => 'datetime',
             'processed_at' => 'datetime',
             'resolved_at' => 'datetime',
+            'photo_cleaned_at' => 'datetime',
         ];
+    }
+
+    public function hasPhoto(): bool
+    {
+        return ! empty($this->photo_path) && Storage::disk('public')->exists($this->photo_path);
+    }
+
+    public function photoUrl(): ?string
+    {
+        if (! $this->photo_path) {
+            return null;
+        }
+
+        return asset('storage/'.ltrim($this->photo_path, '/'));
     }
 
     // ------------------------------------------------------------------

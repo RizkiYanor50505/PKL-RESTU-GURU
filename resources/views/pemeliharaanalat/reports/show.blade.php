@@ -80,6 +80,34 @@
 
                     <div class="form-label">Kendala yang dilaporkan</div>
                     <div class="issue-box">{{ $report->issue_description }}</div>
+
+                    @if($report->hasPhoto())
+                        <div class="mt-4">
+                            <div class="form-label fw-bold d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-camera text-primary"></i> Foto Dokumentasi Kendala
+                            </div>
+                            <div class="card p-2 bg-light border shadow-sm" style="max-width: 460px;">
+                                <a href="{{ $report->photoUrl() }}" target="_blank" title="Klik untuk membuka ukuran penuh">
+                                    <img src="{{ $report->photoUrl() }}" alt="Foto Kendala {{ $report->report_number }}"
+                                         class="img-fluid rounded border" style="max-height: 280px; width: 100%; object-fit: contain; background: #fff;">
+                                </a>
+                                <div class="d-flex justify-content-between align-items-center mt-2 px-1">
+                                    <span class="small text-muted"><i class="bi bi-zoom-in me-1"></i> Klik foto untuk memperbesar</span>
+                                    <a href="{{ $report->photoUrl() }}" download="kendala-{{ $report->report_number }}" class="btn btn-sm btn-outline-secondary py-0 px-2" style="font-size: .75rem;">
+                                        <i class="bi bi-download me-1"></i> Unduh
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @elseif($report->photo_cleaned_at)
+                        <div class="mt-4 p-3 border rounded bg-light text-muted small d-flex align-items-start gap-2">
+                            <i class="bi bi-clock-history text-secondary fs-5 mt-n1"></i>
+                            <div>
+                                <strong>Dokumentasi Foto Telah Direset</strong><br>
+                                Foto kendala awal telah dibersihkan otomatis pada {{ $report->photo_cleaned_at->translatedFormat('d F Y, H:i') }} sesuai kebijakan retensi penyimpanan 1 bulan. Riwayat penanganan & biaya tetap tersimpan permanen.
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </section>
 

@@ -12,7 +12,6 @@
     <div class="page-head">
         <div>
             <h1>Tambah Aset</h1>
-            <p>Daftarkan mesin atau perangkat baru ke dalam sistem.</p>
         </div>
     </div>
 
