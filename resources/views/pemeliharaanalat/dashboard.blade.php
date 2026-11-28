@@ -8,23 +8,39 @@
             <h1>Halo, {{ explode(' ', (string) (auth()->user()?->name ?? session('auth_user.name', 'Pengguna')))[0] }} 👋</h1>
         </div>
         <div class="d-flex align-items-center gap-2 flex-wrap">
-            {{-- Filter Pilih Cabang --}}
-            <form method="GET" action="{{ route('pemeliharaanalat.dashboard') }}" class="d-flex align-items-center gap-2">
-                <label for="branch_id" class="small fw-semibold text-muted d-none d-sm-inline">Cabang:</label>
-                <select name="branch_id" id="branch_id" class="form-select form-select-sm" onchange="this.form.submit()" style="min-width: 220px;">
-                    <option value="">Semua Cabang (Konsolidasi)</option>
+            {{-- Filter Pilih Cabang (Dropdown Elegan Sesuai Tema) --}}
+            <div class="dropdown">
+                <button class="btn btn-filter-dropdown dropdown-toggle" type="button" id="branchDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-buildings text-teal"></i>
+                    <span>{{ $selectedBranch ? ($selectedBranch->name . ' (' . $selectedBranch->city . ')') : 'Semua Cabang (Konsolidasi)' }}</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="branchDropdown" style="min-width: 270px;">
+                    <li class="dropdown-header text-uppercase small fw-bold px-3 py-1" style="color: var(--teal); letter-spacing: .05em;">Pilih Cabang</li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between {{ !$selectedBranchId ? 'active' : '' }}"
+                           href="{{ route('pemeliharaanalat.dashboard') }}">
+                            <span>Semua Cabang (Konsolidasi)</span>
+                            @if(!$selectedBranchId)<i class="bi bi-check2"></i>@endif
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider my-1" style="border-color: var(--sage-border);"></li>
                     @foreach($branches as $b)
-                        <option value="{{ $b->id }}" @selected($selectedBranchId === $b->id)>
-                            {{ $b->name }} ({{ $b->city }})
-                        </option>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between {{ $selectedBranchId === $b->id ? 'active' : '' }}"
+                               href="{{ route('pemeliharaanalat.dashboard', ['branch_id' => $b->id]) }}">
+                                <span>{{ $b->name }} <span class="small opacity-75">({{ $b->city }})</span></span>
+                                @if($selectedBranchId === $b->id)<i class="bi bi-check2"></i>@endif
+                            </a>
+                        </li>
                     @endforeach
-                </select>
-                @if($selectedBranchId)
-                    <a href="{{ route('pemeliharaanalat.dashboard') }}" class="btn btn-sm btn-light border" title="Kembali ke Semua Cabang">
-                        <i class="bi bi-x-lg"></i>
-                    </a>
-                @endif
-            </form>
+                </ul>
+            </div>
+
+            @if($selectedBranchId)
+                <a href="{{ route('pemeliharaanalat.dashboard') }}" class="btn btn-sm btn-outline-secondary" title="Kembali ke Semua Cabang">
+                    <i class="bi bi-x-lg"></i>
+                </a>
+            @endif
 
             <a href="{{ route('pemeliharaanalat.reports.create') }}" class="btn btn-primary" id="btn-new-report">
                 <i class="bi bi-plus-lg me-1"></i> Lapor Kendala
@@ -122,8 +138,8 @@
                                 </td>
                                 <td class="text-center fw-medium">{{ $row['services_count'] }} servis</td>
                                 <td class="text-end fw-bold text-dark fs-6">{{ rupiah($row['monthly_cost']) }}</td>
-                                <td class="text-end">
-                                    <a href="{{ route('pemeliharaanalat.branches.show', $b) }}" class="btn btn-sm btn-outline-primary py-1 px-2" style="font-size:.78rem">
+                                <td class="text-end text-nowrap">
+                                    <a href="{{ route('pemeliharaanalat.branches.show', $b) }}" class="btn btn-sm btn-detail py-1 px-3">
                                         <i class="bi bi-eye"></i> Detail
                                     </a>
                                 </td>

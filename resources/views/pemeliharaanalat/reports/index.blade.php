@@ -39,14 +39,31 @@
 
             <form method="GET" class="d-flex gap-2 flex-wrap align-items-center" id="form-filter">
                 @if($currentStatus)<input type="hidden" name="status" value="{{ $currentStatus }}">@endif
-                <select name="branch_id" class="form-select form-select-sm" style="width: 175px;" onchange="this.form.submit()">
-                    <option value="">Semua Cabang</option>
-                    @foreach($branches as $b)
-                        <option value="{{ $b->id }}" @selected((string) $selectedBranchId === (string) $b->id)>
-                            {{ $b->name }}
-                        </option>
-                    @endforeach
-                </select>
+                <div class="dropdown">
+                    <button class="btn btn-filter-dropdown dropdown-toggle" type="button" id="reportsBranchDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-buildings text-teal"></i>
+                        <span>{{ $selectedBranchId && ($sb = $branches->firstWhere('id', $selectedBranchId)) ? $sb->name : 'Semua Cabang' }}</span>
+                    </button>
+                    <ul class="dropdown-menu shadow" aria-labelledby="reportsBranchDropdown" style="min-width: 220px;">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between {{ !$selectedBranchId ? 'active' : '' }}"
+                               href="{{ route('pemeliharaanalat.reports.index', array_filter(['status' => $currentStatus, 'q' => request('q'), 'mine' => $mine ? 1 : null])) }}">
+                                <span>Semua Cabang</span>
+                                @if(!$selectedBranchId)<i class="bi bi-check2"></i>@endif
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider my-1" style="border-color: var(--sage-border);"></li>
+                        @foreach($branches as $b)
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between {{ (string) $selectedBranchId === (string) $b->id ? 'active' : '' }}"
+                                   href="{{ route('pemeliharaanalat.reports.index', array_filter(['status' => $currentStatus, 'q' => request('q'), 'mine' => $mine ? 1 : null, 'branch_id' => $b->id])) }}">
+                                    <span>{{ $b->name }}</span>
+                                    @if((string) $selectedBranchId === (string) $b->id)<i class="bi bi-check2"></i>@endif
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
                 <div class="form-check form-switch mb-0">
                     <input class="form-check-input" type="checkbox" role="switch" id="mine" name="mine" value="1"
                            @checked($mine) onchange="this.form.submit()">
@@ -105,8 +122,8 @@
                                     <div class="cell-sub">{{ $report->reported_at->format('H:i') }} WITA</div>
                                 </td>
                                 <td class="text-end text-nowrap">
-                                    <a href="{{ route('pemeliharaanalat.reports.show', $report) }}" class="btn btn-sm btn-outline-primary" title="Detail">
-                                        <i class="bi bi-eye"></i>
+                                    <a href="{{ route('pemeliharaanalat.reports.show', $report) }}" class="btn btn-sm btn-detail" title="Detail">
+                                        <i class="bi bi-eye"></i> Detail
                                     </a>
                                     @if(auth()->user()?->isAdmin())
                                         <form action="{{ route('pemeliharaanalat.reports.destroy', $report) }}" method="POST" class="d-inline"

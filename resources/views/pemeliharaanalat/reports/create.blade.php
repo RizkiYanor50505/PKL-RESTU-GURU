@@ -21,8 +21,69 @@
                 @csrf
                 <div class="panel-body p-4">
                     <div class="mb-4">
-                        <label for="asset_id" class="form-label">Mesin / Aset <span class="text-danger">*</span></label>
-                        <select name="asset_id" id="asset_id" class="form-select form-select-lg @error('asset_id') is-invalid @enderror" required>
+                        @php
+                            $initAssetId = old('asset_id', $selectedAsset);
+                            $initAsset = null;
+                            if ($initAssetId) {
+                                foreach($branches as $b) {
+                                    if ($found = $b->assets->firstWhere('id', $initAssetId)) {
+                                        $initAsset = $found;
+                                        break;
+                                    }
+                                }
+                            }
+                        @endphp
+                        <label class="form-label">Mesin / Aset <span class="text-danger">*</span></label>
+
+                        {{-- Custom Asset Dropdown Picker --}}
+                        <div class="dropdown custom-asset-picker">
+                            <button class="custom-asset-picker-btn dropdown-toggle @error('asset_id') border-danger @enderror"
+                                    type="button" id="assetPickerToggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="d-inline-flex align-items-center gap-2 text-truncate" id="assetPickerLabel">
+                                    <i class="bi bi-printer text-teal fs-6"></i>
+                                    <span class="text-truncate fw-semibold" id="assetPickerText">
+                                        {{ $initAsset ? ($initAsset->name . ' (' . $initAsset->code . ')') : '— Pilih mesin yang bermasalah —' }}
+                                    </span>
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu shadow w-100 p-2" aria-labelledby="assetPickerToggle" style="max-height: 360px; overflow-y: auto;">
+                                <li class="px-2 pb-2">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control" id="assetSearchFilter" placeholder="Ketik nama mesin atau kode..." autocomplete="off">
+                                    </div>
+                                </li>
+                                <li><hr class="dropdown-divider my-1"></li>
+                                @foreach($branches as $branch)
+                                    <li class="dropdown-header text-uppercase small fw-bold px-3 py-1 mt-1 branch-group-header" style="color: var(--teal); background: var(--sage-soft); border-radius: 6px;">
+                                        <i class="bi bi-buildings me-1"></i> {{ $branch->name }} ({{ $branch->city }})
+                                    </li>
+                                    @foreach($branch->assets as $asset)
+                                        <li class="asset-item-wrapper">
+                                            <a href="javascript:void(0)"
+                                               class="dropdown-item d-flex align-items-center justify-content-between py-2 px-3 asset-pick-item {{ $initAssetId == $asset->id ? 'active' : '' }}"
+                                               data-id="{{ $asset->id }}"
+                                               data-label="{{ $asset->name }} ({{ $asset->code }})">
+                                                <div>
+                                                    <div class="fw-semibold">{{ $asset->name }}</div>
+                                                    <div class="small opacity-75 d-flex gap-2 align-items-center">
+                                                        <span><i class="bi bi-upc me-1"></i>{{ $asset->code }}</span>
+                                                        <span>•</span>
+                                                        <span><i class="bi bi-geo-alt me-1"></i>{{ $asset->location }}</span>
+                                                    </div>
+                                                </div>
+                                                <span class="badge {{ $asset->status->value === 'normal' ? 'bg-success' : 'bg-warning text-dark' }} rounded-pill" style="font-size: .7rem;">
+                                                    {{ $asset->status->label() }}
+                                                </span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        {{-- Hidden real select for backend compatibility --}}
+                        <select name="asset_id" id="asset_id" class="d-none" required>
                             <option value="">— Pilih mesin yang bermasalah —</option>
                             @foreach($branches as $branch)
                                 <optgroup label="🏢 {{ $branch->name }} ({{ $branch->city }})">
@@ -34,14 +95,14 @@
                                                 data-brand="{{ $asset->brand ?? $asset->subtitle }}"
                                                 data-subtitle="{{ $asset->subtitle }}"
                                                 data-status="{{ $asset->status->label() }}"
-                                                @selected(old('asset_id', $selectedAsset) == $asset->id)>
+                                                @selected($initAssetId == $asset->id)>
                                             {{ $asset->name }} ({{ $asset->code }})
                                         </option>
                                     @endforeach
                                 </optgroup>
                             @endforeach
                         </select>
-                        @error('asset_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        @error('asset_id')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 
                         {{-- Auto-fill info mesin --}}
                         <div class="info-box mt-3 d-none" id="asset-info">
@@ -175,6 +236,42 @@
 
         select.addEventListener('change', render);
         render();
+
+        // Asset Dropdown Picker Handler
+        const pickerText = document.getElementById('assetPickerText');
+        const assetPickerToggle = document.getElementById('assetPickerToggle');
+        const assetSearch = document.getElementById('assetSearchFilter');
+
+        document.querySelectorAll('.asset-pick-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const id = this.dataset.id;
+                const label = this.dataset.label;
+
+                select.value = id;
+                if (pickerText) pickerText.textContent = label;
+
+                document.querySelectorAll('.asset-pick-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+
+                // Trigger change to update asset-info box
+                select.dispatchEvent(new Event('change'));
+
+                // Close bootstrap dropdown
+                if (assetPickerToggle) {
+                    const dd = bootstrap.Dropdown.getInstance(assetPickerToggle);
+                    if (dd) dd.hide();
+                }
+            });
+        });
+
+        // Filter search inside asset dropdown
+        assetSearch?.addEventListener('input', function () {
+            const q = this.value.toLowerCase().trim();
+            document.querySelectorAll('.asset-item-wrapper').forEach(wrapper => {
+                const text = wrapper.textContent.toLowerCase();
+                wrapper.style.display = text.includes(q) ? '' : 'none';
+            });
+        });
 
         // Elemen Foto & Kamera
         const photoInput = document.getElementById('photo-input');

@@ -15,42 +15,111 @@
     <section class="card-panel">
         <div class="panel-head">
             <form method="GET" class="row g-2 w-100 align-items-center" id="form-asset-filter">
-                <div class="col-md-3">
-                    <div class="input-group">
+                <div class="col-lg-3 col-md-6">
+                    <div class="input-group input-group-pill">
                         <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="search" name="q" value="{{ request('q') }}" class="form-control" placeholder="Cari kode, nama, atau merek...">
+                        <input type="search" name="q" value="{{ request('q') }}" class="form-control" placeholder="Cari kode, nama, merek...">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <select name="branch_id" class="form-select" onchange="this.form.submit()">
-                        <option value="">Semua Cabang</option>
-                        @foreach($branches as $branch)
-                            <option value="{{ $branch->id }}" @selected((string) request('branch_id') === (string) $branch->id)>
-                                {{ $branch->name }} ({{ $branch->city }})
-                            </option>
-                        @endforeach
-                    </select>
+
+                {{-- Filter Cabang --}}
+                <div class="col-lg-3 col-md-6">
+                    @php $curBranch = $branches->firstWhere('id', request('branch_id')); @endphp
+                    <div class="dropdown">
+                        <button class="btn btn-filter-dropdown dropdown-toggle w-100 justify-content-between text-truncate" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-inline-flex align-items-center gap-2 text-truncate">
+                                <i class="bi bi-buildings text-teal"></i>
+                                <span class="text-truncate">{{ $curBranch ? $curBranch->name : 'Semua Cabang' }}</span>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu shadow w-100" style="min-width: 220px; max-height: 280px; overflow-y: auto;">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between {{ !request('branch_id') ? 'active' : '' }}"
+                                   href="{{ route('pemeliharaanalat.assets.index', array_filter(['q' => request('q'), 'location' => request('location'), 'status' => request('status')])) }}">
+                                    <span>Semua Cabang</span>
+                                    @if(!request('branch_id'))<i class="bi bi-check2"></i>@endif
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            @foreach($branches as $branch)
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between {{ (string) request('branch_id') === (string) $branch->id ? 'active' : '' }}"
+                                       href="{{ route('pemeliharaanalat.assets.index', array_filter(['q' => request('q'), 'branch_id' => $branch->id, 'location' => request('location'), 'status' => request('status')])) }}">
+                                        <span>{{ $branch->name }}</span>
+                                        @if((string) request('branch_id') === (string) $branch->id)<i class="bi bi-check2"></i>@endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <select name="location" class="form-select" onchange="this.form.submit()">
-                        <option value="">Semua lokasi</option>
-                        @foreach($locations as $location)
-                            <option value="{{ $location }}" @selected(request('location') === $location)>{{ $location }}</option>
-                        @endforeach
-                    </select>
+
+                {{-- Filter Lokasi --}}
+                <div class="col-lg-2 col-md-4">
+                    <div class="dropdown">
+                        <button class="btn btn-filter-dropdown dropdown-toggle w-100 justify-content-between text-truncate" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-inline-flex align-items-center gap-2 text-truncate">
+                                <i class="bi bi-geo-alt text-teal"></i>
+                                <span class="text-truncate">{{ request('location') ?: 'Semua lokasi' }}</span>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu shadow w-100" style="min-width: 200px; max-height: 280px; overflow-y: auto;">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between {{ !request('location') ? 'active' : '' }}"
+                                   href="{{ route('pemeliharaanalat.assets.index', array_filter(['q' => request('q'), 'branch_id' => request('branch_id'), 'status' => request('status')])) }}">
+                                    <span>Semua lokasi</span>
+                                    @if(!request('location'))<i class="bi bi-check2"></i>@endif
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            @foreach($locations as $loc)
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between {{ request('location') === $loc ? 'active' : '' }}"
+                                       href="{{ route('pemeliharaanalat.assets.index', array_filter(['q' => request('q'), 'branch_id' => request('branch_id'), 'location' => $loc, 'status' => request('status')])) }}">
+                                        <span>{{ $loc }}</span>
+                                        @if(request('location') === $loc)<i class="bi bi-check2"></i>@endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <select name="status" class="form-select" onchange="this.form.submit()">
-                        <option value="">Semua status</option>
-                        @foreach($statuses as $value => $label)
-                            <option value="{{ $value }}" @selected(request('status') === $value)>{{ $label }}</option>
-                        @endforeach
-                    </select>
+
+                {{-- Filter Status --}}
+                <div class="col-lg-2 col-md-4">
+                    <div class="dropdown">
+                        <button class="btn btn-filter-dropdown dropdown-toggle w-100 justify-content-between text-truncate" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-inline-flex align-items-center gap-2 text-truncate">
+                                <i class="bi bi-activity text-teal"></i>
+                                <span class="text-truncate">{{ request('status') && isset($statuses[request('status')]) ? $statuses[request('status')] : 'Semua status' }}</span>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu shadow w-100" style="min-width: 200px;">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between {{ !request('status') ? 'active' : '' }}"
+                                   href="{{ route('pemeliharaanalat.assets.index', array_filter(['q' => request('q'), 'branch_id' => request('branch_id'), 'location' => request('location')])) }}">
+                                    <span>Semua status</span>
+                                    @if(!request('status'))<i class="bi bi-check2"></i>@endif
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            @foreach($statuses as $val => $lbl)
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between {{ request('status') === $val ? 'active' : '' }}"
+                                       href="{{ route('pemeliharaanalat.assets.index', array_filter(['q' => request('q'), 'branch_id' => request('branch_id'), 'location' => request('location'), 'status' => $val])) }}">
+                                        <span>{{ $lbl }}</span>
+                                        @if(request('status') === $val)<i class="bi bi-check2"></i>@endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-2 d-flex gap-2">
+
+                <div class="col-lg-2 col-md-4 d-flex gap-2">
                     <button class="btn btn-primary flex-fill" type="submit">Cari</button>
                     @if(request()->hasAny(['q', 'branch_id', 'location', 'status']))
-                        <a href="{{ route('pemeliharaanalat.assets.index') }}" class="btn btn-light border" title="Reset"><i class="bi bi-x-lg"></i></a>
+                        <a href="{{ route('pemeliharaanalat.assets.index') }}" class="btn btn-outline-secondary" title="Reset filter"><i class="bi bi-x-lg"></i></a>
                     @endif
                 </div>
             </form>

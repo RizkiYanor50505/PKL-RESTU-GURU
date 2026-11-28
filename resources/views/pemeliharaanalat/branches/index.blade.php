@@ -15,7 +15,7 @@
     </div>
 
     {{-- Kartu Konsolidasi Seluruh Cabang (Hasil Dijadikan 1) --}}
-    <div class="card-panel mb-4 p-4" style="background: linear-gradient(135deg, var(--forest-900), var(--forest-800)); color: #fff; border: 1px solid rgba(214, 168, 75, .35);">
+    <div class="card-panel mb-4 p-4" style="background: linear-gradient(135deg, var(--forest-900), var(--forest-800)); color: #fff; border: 1px solid rgba(20, 188, 173, .35);">
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div>
                 <span class="bdg bdg-gold mb-2">
@@ -26,7 +26,7 @@
             </div>
             <div class="text-md-end">
                 <div class="small text-uppercase fw-semibold text-white-50" style="letter-spacing:.05em">Grand Total Biaya (Dijadikan 1)</div>
-                <div class="display-6 fw-extrabold my-1" id="grand-total-monthly-cost" style="color: #f7dfa5; text-shadow: 0 2px 6px rgba(0,0,0,.3);">
+                <div class="display-6 fw-extrabold my-1" id="grand-total-monthly-cost" style="color: #14bcad; text-shadow: 0 2px 6px rgba(0,0,0,.3);">
                     {{ rupiah($grandTotalMonthlyCost) }}
                 </div>
                 <div class="small text-white-50">
@@ -112,7 +112,7 @@
                                 <div class="fw-semibold text-muted">{{ rupiah($stat['total_cost']) }}</div>
                             </td>
                             <td class="text-end text-nowrap">
-                                <a href="{{ route('pemeliharaanalat.branches.show', $b) }}" class="btn btn-sm btn-outline-primary" title="Lihat Alat & Servis">
+                                <a href="{{ route('pemeliharaanalat.branches.show', $b) }}" class="btn btn-sm btn-detail py-1 px-3" title="Lihat Alat & Servis">
                                     <i class="bi bi-eye"></i> Detail
                                 </a>
                                 @if(auth()->user()?->isAdmin() || session('auth_role') === 'manajer')

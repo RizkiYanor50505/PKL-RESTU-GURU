@@ -24,11 +24,11 @@
             </div>
         @endforeach
         <div class="col-12">
-            <div class="p-3 shadow-sm" style="background: linear-gradient(135deg, var(--forest-900) 0%, var(--forest-800) 55%, var(--accent) 100%); color: #fff; border-radius: 12px; border: 1px solid rgba(214, 168, 75, .35);">
+            <div class="p-3 shadow-sm" style="background: linear-gradient(135deg, var(--forest-900) 0%, var(--forest-800) 55%, var(--accent) 100%); color: #fff; border-radius: 12px; border: 1px solid rgba(20, 188, 173, .35);">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <div>
                         <div class="text-uppercase small opacity-75 fw-bold" style="letter-spacing: .05em">Grand Total Biaya Pemeliharaan (Gabungan Seluruh Cabang)</div>
-                        <div class="h2 mb-0 fw-bold" style="color: #f7dfa5; text-shadow: 0 2px 6px rgba(0,0,0,.3);">{{ rupiah($totalCost) }}</div>
+                        <div class="h2 mb-0 fw-bold" style="color: #14bcad; text-shadow: 0 2px 6px rgba(0,0,0,.3);">{{ rupiah($totalCost) }}</div>
                     </div>
                     <div class="text-end">
                         <span class="bdg bdg-gold fs-6 px-3 py-2 fw-semibold">
@@ -43,41 +43,89 @@
     <section class="card-panel">
         <div class="panel-head">
             <form method="GET" class="row g-2 w-100 align-items-end" id="form-maintenance-filter">
-                <div class="col-md-3">
-                    <label class="form-label" for="branch_id">Cabang</label>
-                    <select name="branch_id" id="branch_id" class="form-select" onchange="this.form.submit()">
-                        <option value="">Semua Cabang (Gabungan)</option>
-                        @foreach($branches as $b)
-                            <option value="{{ $b->id }}" @selected((int) $filters['branch_id'] === $b->id)>
-                                {{ $b->name }} ({{ $b->city }})
-                            </option>
-                        @endforeach
-                    </select>
+                {{-- Filter Cabang --}}
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label">Cabang</label>
+                    @php $selBranch = $branches->firstWhere('id', (int) $filters['branch_id']); @endphp
+                    <div class="dropdown">
+                        <button class="btn btn-filter-dropdown dropdown-toggle w-100 justify-content-between text-truncate" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-inline-flex align-items-center gap-2 text-truncate">
+                                <i class="bi bi-buildings text-teal"></i>
+                                <span class="text-truncate">{{ $selBranch ? $selBranch->name : 'Semua Cabang (Gabungan)' }}</span>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu shadow w-100" style="min-width: 240px; max-height: 280px; overflow-y: auto;">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between {{ !$filters['branch_id'] ? 'active' : '' }}"
+                                   href="{{ route('pemeliharaanalat.maintenance.index', array_filter(['date_from' => $filters['date_from'], 'date_to' => $filters['date_to'], 'asset_id' => $filters['asset_id']])) }}">
+                                    <span>Semua Cabang (Gabungan)</span>
+                                    @if(!$filters['branch_id'])<i class="bi bi-check2"></i>@endif
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            @foreach($branches as $b)
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between {{ (int) $filters['branch_id'] === $b->id ? 'active' : '' }}"
+                                       href="{{ route('pemeliharaanalat.maintenance.index', array_filter(['branch_id' => $b->id, 'date_from' => $filters['date_from'], 'date_to' => $filters['date_to'], 'asset_id' => $filters['asset_id']])) }}">
+                                        <span>{{ $b->name }} <span class="small opacity-75">({{ $b->city }})</span></span>
+                                        @if((int) $filters['branch_id'] === $b->id)<i class="bi bi-check2"></i>@endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-2">
+
+                {{-- Tanggal Dari --}}
+                <div class="col-lg-2 col-md-3">
                     <label class="form-label" for="date_from">Dari tanggal</label>
-                    <input type="date" name="date_from" id="date_from" value="{{ $filters['date_from'] }}" class="form-control @error('date_from') is-invalid @enderror">
+                    <input type="date" name="date_from" id="date_from" value="{{ $filters['date_from'] }}" class="form-control rounded-pill @error('date_from') is-invalid @enderror">
                 </div>
-                <div class="col-md-2">
+
+                {{-- Tanggal Sampai --}}
+                <div class="col-lg-2 col-md-3">
                     <label class="form-label" for="date_to">Sampai tanggal</label>
-                    <input type="date" name="date_to" id="date_to" value="{{ $filters['date_to'] }}" class="form-control @error('date_to') is-invalid @enderror">
+                    <input type="date" name="date_to" id="date_to" value="{{ $filters['date_to'] }}" class="form-control rounded-pill @error('date_to') is-invalid @enderror">
                     @error('date_to')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label" for="asset_id">Mesin</label>
-                    <select name="asset_id" id="asset_id" class="form-select">
-                        <option value="">Semua mesin</option>
-                        @foreach($assets as $asset)
-                            <option value="{{ $asset->id }}" @selected((int) $filters['asset_id'] === $asset->id)>
-                                {{ $asset->code }} — {{ $asset->name }} ({{ $asset->branch?->name ?? 'Cabang' }})
-                            </option>
-                        @endforeach
-                    </select>
+
+                {{-- Filter Mesin --}}
+                <div class="col-lg-3 col-md-8">
+                    <label class="form-label">Mesin</label>
+                    @php $selAsset = $assets->firstWhere('id', (int) $filters['asset_id']); @endphp
+                    <div class="dropdown">
+                        <button class="btn btn-filter-dropdown dropdown-toggle w-100 justify-content-between text-truncate" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-inline-flex align-items-center gap-2 text-truncate">
+                                <i class="bi bi-tools text-teal"></i>
+                                <span class="text-truncate">{{ $selAsset ? ($selAsset->code . ' — ' . $selAsset->name) : 'Semua mesin' }}</span>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu shadow w-100" style="min-width: 260px; max-height: 280px; overflow-y: auto;">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between {{ !$filters['asset_id'] ? 'active' : '' }}"
+                                   href="{{ route('pemeliharaanalat.maintenance.index', array_filter(['branch_id' => $filters['branch_id'], 'date_from' => $filters['date_from'], 'date_to' => $filters['date_to']])) }}">
+                                    <span>Semua mesin</span>
+                                    @if(!$filters['asset_id'])<i class="bi bi-check2"></i>@endif
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            @foreach($assets as $asset)
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between {{ (int) $filters['asset_id'] === $asset->id ? 'active' : '' }}"
+                                       href="{{ route('pemeliharaanalat.maintenance.index', array_filter(['branch_id' => $filters['branch_id'], 'date_from' => $filters['date_from'], 'date_to' => $filters['date_to'], 'asset_id' => $asset->id])) }}">
+                                        <span class="text-truncate me-2">{{ $asset->code }} — {{ $asset->name }}</span>
+                                        @if((int) $filters['asset_id'] === $asset->id)<i class="bi bi-check2"></i>@endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-2 d-flex gap-2">
-                    <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-funnel me-1"></i>Terapkan</button>
+
+                <div class="col-lg-2 col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-funnel me-1"></i>Filter</button>
                     @if(array_filter($filters))
-                        <a href="{{ route('pemeliharaanalat.maintenance.index') }}" class="btn btn-light border" title="Reset"><i class="bi bi-x-lg"></i></a>
+                        <a href="{{ route('pemeliharaanalat.maintenance.index') }}" class="btn btn-outline-secondary" title="Reset filter"><i class="bi bi-x-lg"></i></a>
                     @endif
                 </div>
             </form>

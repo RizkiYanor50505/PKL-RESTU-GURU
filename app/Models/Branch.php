@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\AssetStatus;
-use App\Enums\ReportStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

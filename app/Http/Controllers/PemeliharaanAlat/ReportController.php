@@ -116,19 +116,6 @@ class ReportController extends Controller
             ->with('success', "Laporan {$number} berhasil dihapus.");
     }
 
-    /**
-     * Bersihkan foto dokumentasi lama (> 90 hari / 3 bulan).
-     */
-    public function prunePhotos(Request $request): RedirectResponse
-    {
-        $days = $request->integer('days', 90);
-        $result = $this->reports->pruneOldPhotos($days);
-        $freedMb = round($result['freed_bytes'] / (1024 * 1024), 2);
-
-        return redirect()->route('pemeliharaanalat.reports.index')
-            ->with('success', "Pembersihan berkala selesai: {$result['deleted_count']} file foto lama berhasil dibersihkan (menghemat {$freedMb} MB penyimpanan server).");
-    }
-
     /** Lembar SPK / Laporan Servis format A4 siap cetak. */
     public function print(Report $report): View
     {

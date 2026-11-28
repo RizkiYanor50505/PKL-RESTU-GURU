@@ -1,9 +1,5 @@
 <?php
 
-if (file_exists(app_path('Support/helpers.php'))) {
-    require_once app_path('Support/helpers.php');
-}
-
 use App\Http\Controllers\PemeliharaanAlat\AssetController;
 use App\Http\Controllers\PemeliharaanAlat\BranchController;
 use App\Http\Controllers\PemeliharaanAlat\DashboardController;
@@ -34,7 +30,6 @@ Route::get('/dashboard', fn () => redirect()->route('pemeliharaanalat.dashboard'
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('/reports/create', [ReportController::class, 'create'])->name('reports.create');
 Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
-Route::post('/reports/prune-photos', [ReportController::class, 'prunePhotos'])->name('reports.prune-photos');
 Route::get('/reports/{report}', [ReportController::class, 'show'])->name('reports.show');
 Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
 Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
